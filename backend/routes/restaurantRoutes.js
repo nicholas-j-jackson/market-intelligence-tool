@@ -1,6 +1,6 @@
 import {addNewRestaurant, getRestaurants, getRestaurantWithID} from '../controllers/restaurantControllers.js'
 
-const restaurantRoutes = (app) => {
+const locationRoutes = (app) => {
     app.route('/locations')
         // GET endpoint
         .get(getRestaurants)
@@ -13,4 +13,4 @@ const restaurantRoutes = (app) => {
 
 }
 
-export default restaurantRoutes;
+export default locationRoutes;

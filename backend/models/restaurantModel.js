@@ -1,8 +1,7 @@
-import mongoose from "mongoose";
-
+import mongoose from 'mongoose'
 const Schema = mongoose.Schema;
 
-export const RestaurantSchema = new Schema({
+export const locationSchema = new Schema({
     type: {
         type: String,
         required: true
@@ -43,11 +42,9 @@ export const RestaurantSchema = new Schema({
         type: String,
         required: true
     },
-    is24Hours: {
-        type: String
-    },
     wifi: {
-        type: String
+        type: String,
+        required: true
     },
     latitude: {
         type: Number,
@@ -62,10 +59,18 @@ export const RestaurantSchema = new Schema({
         required: true
     },
     geo_accuracy: {
-        type: String
+        type: String,
+        required: true
     },
     country_code: {
-        type: String
+        type: String,
+        required: true
+    },
+    is24Hours: {
+        type: String,
+        required: true
     }
 
-}, {collection: 'locations'});
+});
+
+export const Location = mongoose.model('Location', locationSchema);

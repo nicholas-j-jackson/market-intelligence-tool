@@ -1,10 +1,8 @@
 import mongoose from "mongoose";
-import {RestaurantSchema} from "../models/restaurantModel.js"
-
-const Restaurant = mongoose.model("Restaurant", RestaurantSchema);
+import { Location } from "../models/restaurantModel.js";
 
 export const addNewRestaurant = (req, res) => {
-    let newRestaurant = new Restaurant(req.body);
+    let newRestaurant = new Location(req.body);
 
     newRestaurant.save((err, restaurant) => {
         if (err) {
@@ -16,7 +14,7 @@ export const addNewRestaurant = (req, res) => {
 };
 
 export const getRestaurants = (req, res) => {
-    Restaurant.find({}, (err, Restaurant) => {
+    Location.find({}, (err, Restaurant) => {
         if (err) {
             res.send(err);
         }
@@ -25,12 +23,10 @@ export const getRestaurants = (req, res) => {
 };
 
 export const getRestaurantWithID = (req, res) => {
-    Restaurant.findById(req.params.RestaurantId, (err, Restaurant) => {
+    Location.findById(req.params.RestaurantId, (err, Restaurant) => {
         if (err) {
             res.send(err);
         }
         res.json(Restaurant);
      });
 }
-
-

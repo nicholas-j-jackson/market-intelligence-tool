@@ -2,7 +2,8 @@ import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import routes from './routes/foodRoutes.js';
-import restaurantRoutes from './routes/restaurantRoutes.js';
+import locationRoutes from './routes/restaurantRoutes.js';
+import {Location} from './models/restaurantModel.js';
 
 import dotenv from 'dotenv';
 
@@ -33,8 +34,7 @@ app.use(bodyParser.json());
 
 // Associate routes with app
 routes(app);
-restaurantRoutes(app);
-
+locationRoutes(app);
 
 app.get('/', (req, res) => {
     res.send(`Hello World! ${PORT}`);
@@ -44,4 +44,3 @@ app.get('/', (req, res) => {
 app.listen(process.env.PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
-
