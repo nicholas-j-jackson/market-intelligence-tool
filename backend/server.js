@@ -12,9 +12,6 @@ const PORT = process.env.PORT;
 
 const MONGO_URL = process.env.MONGO_URL.toString();
 
-//const PORT = 3000;
-//const MONGO_URL = 'mongodb+srv://Mamba4201:puYGzQpCMNdwt9g8@cluster0.nczydbr.mongodb.net/?retryWrites=true&w=majority'
-
 const app = express();
 
 
