@@ -2,8 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import routes from './routes/foodRoutes.js';
-import locationRoutes from './routes/restaurantRoutes.js';
-import {Location} from './models/restaurantModel.js';
+import locationRoutes from './routes/locationRoutes.js';
 
 import dotenv from 'dotenv';
 
