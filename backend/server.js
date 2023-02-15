@@ -1,14 +1,19 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
-import routes from './routes/restaurantRoutes.js';
+import routes from './routes/foodRoutes.js';
+import restaurantRoutes from './routes/restaurantRoutes.js';
 
 import dotenv from 'dotenv';
 
 dotenv.config();
 
 const PORT = process.env.PORT;
+
 const MONGO_URL = process.env.MONGO_URL.toString();
+
+//const PORT = 3000;
+//const MONGO_URL = 'mongodb+srv://Mamba4201:puYGzQpCMNdwt9g8@cluster0.nczydbr.mongodb.net/?retryWrites=true&w=majority'
 
 const app = express();
 
@@ -28,6 +33,7 @@ app.use(bodyParser.json());
 
 // Associate routes with app
 routes(app);
+restaurantRoutes(app);
 
 
 app.get('/', (req, res) => {

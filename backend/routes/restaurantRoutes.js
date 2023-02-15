@@ -1,36 +1,16 @@
-import { addNewFood, getFoods, getFoodFromAddress, getFoodFromID, putFood, deleteFood } from '../controllers/foodControllers.js'
+import {addNewRestaurant, getRestaurants, getRestaurantWithID} from '../controllers/restaurantControllers.js'
 
-const routes = (app) => {
-    // Add new food
-    app.route('/food')
-    // POST endpoint
-        .post(addNewFood);
-
-    // Get all foods
-    app.route('/foods')
-    // GET endpoint
-        .get(getFoods);
-
-    // Get food from address
-    app.route('/food/:actual_address')
-    // GET endpoint
-        .get(getFoodFromAddress);
-
-    // Get food from id
-    app.route('/food/:id')
-    // GET endpoint
-        .get(getFoodFromID);
-
-    // Update food
-    app.route('/food/:id')
-    // PUT endpoint
-        .put(putFood);
+const restaurantRoutes = (app) => {
+    app.route('/locations')
+        // GET endpoint
+        .get(getRestaurants)
     
-    // Delete food  
-    app.route('/food/:id')
-    // DELETE endpoint
-        .delete(deleteFood);
+        // POST Endpoint
+            .post(addNewRestaurant);
+
+    app.route('/locations/:RestaurantId')
+        .get(getRestaurantWithID);
 
 }
 
-export default routes;
+export default restaurantRoutes;
