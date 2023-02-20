@@ -1,4 +1,3 @@
-import mongoose from "mongoose";
 import { Location } from "../models/locationModel.js";
 
 export const addNewLocation = (req, res) => {
@@ -22,10 +21,11 @@ export const getLocations = (req, res) => {
     });
 };
 
-export const getLocationByStoreNumber = (req, res) => {
+export const getLocationByTypeAndStoreNumber = (req, res) => {
+    const type = req.params.type;
     const store_number = req.params.store_number;
 
-    Location.findOne({"store_number": store_number}, (err, location) => {
+    Location.findOne({"type": type, "store_number": store_number}, (err, location) => {
         if (err) {
             res.send(err);
         }

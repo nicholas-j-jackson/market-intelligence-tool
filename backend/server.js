@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import bodyParser from 'body-parser';
 import routes from './routes/foodRoutes.js';
 import locationRoutes from './routes/locationRoutes.js';
+import priceRoutes from './routes/priceRoutes.js';
 
 import dotenv from 'dotenv';
 
@@ -31,6 +32,7 @@ app.use(bodyParser.json());
 // Associate routes with app
 routes(app);
 locationRoutes(app);
+priceRoutes(app);
 
 app.get('/', (req, res) => {
     res.send(`Hello World! ${PORT}`);
