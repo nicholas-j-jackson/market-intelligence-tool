@@ -2,15 +2,11 @@ import mongoose from 'mongoose'
 const Schema = mongoose.Schema;
 
 export const locationSchema = new Schema({
-    type: {
-        type: String,
-        required: true
-    },
-    store_number: {
+    store_id: {
         type: Number,
         required: true
     },
-    store_name: {
+    reference: {
         type: String,
         required: true
     },
@@ -26,24 +22,8 @@ export const locationSchema = new Schema({
         type: String,
         required: true
     },
-    zip_code: {
+    zip: {
         type: Number,
-        required: true
-    },
-    country: {
-        type: String,
-        required: true
-    },
-    phone_number: {
-        type: String,
-        required: true
-    },
-    store_hours: {
-        type: String,
-        required: true
-    },
-    wifi: {
-        type: String,
         required: true
     },
     latitude: {
@@ -54,23 +34,10 @@ export const locationSchema = new Schema({
         type: Number,
         required: true
     },
-    county: {
+    type: {
         type: String,
         required: true
     },
-    geo_accuracy: {
-        type: String,
-        required: true
-    },
-    country_code: {
-        type: String,
-        required: true
-    },
-    is24Hours: {
-        type: String,
-        required: true
-    }
-
 });
 
 export const Location = mongoose.model('Location', locationSchema);

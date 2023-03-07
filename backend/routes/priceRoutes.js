@@ -8,10 +8,10 @@ const priceRoutes = (app) => {
         // POST Endpoint
             .post(addNewPrice);
 
-    app.route('/prices/:type/:store_number/:product')
+    app.route('/prices/type_id_item/:type/:store_id/:item')
         .get(getPriceByStoreNumberAndProduct);
 
-    app.route('/prices/:type/:store_number')
+    app.route('/prices/type_id/:type/:store_id')
         .get(getAllPricesFromStore);
     
 }

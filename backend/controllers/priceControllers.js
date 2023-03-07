@@ -23,10 +23,10 @@ export const getPrices = (req, res) => {
 
 export const getPriceByStoreNumberAndProduct = (req, res) => {
     const type = req.params.type;
-    const store_number = req.params.store_number;
-    const product = req.params.product;
+    const store_id = req.params.store_id;
+    const item = req.params.item;
     
-    Price.findOne({"type": type, "store_number": store_number, "product": product}, (err, price) => {
+    Price.findOne({"type": type, "store_id": store_id, "item": item}, (err, price) => {
         if (err) {
             res.send(err);
         }
@@ -36,9 +36,9 @@ export const getPriceByStoreNumberAndProduct = (req, res) => {
 
 export const getAllPricesFromStore = (req, res) => {
     const type = req.params.type;
-    const store_number = req.params.store_number;
+    const store_id = req.params.store_id;
     
-    Price.find({"type": type, "store_number": store_number}, (err, price) => {
+    Price.find({"type": type, "store_id": store_id}, (err, price) => {
         if (err) {
             res.send(err);
         }

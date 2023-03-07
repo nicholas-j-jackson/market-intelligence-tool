@@ -2,15 +2,15 @@ import mongoose from 'mongoose'
 const Schema = mongoose.Schema;
 
 export const priceSchema = new Schema({
-    type: {
-        type: String,
-        required: true
-    },
-    store_number: {
+    store_id: {
         type: Number,
         required: true
     },
-    product: {
+    item: {
+        type: String,
+        required: true
+    },
+    size: {
         type: String,
         required: true
     },
@@ -18,8 +18,12 @@ export const priceSchema = new Schema({
         type: Number,
         required: true
     },
+    type: {
+        type: String,
+        required: true
+    },
     time: {
-        type: Date,
+        type: String,
         required: true
     }
 });
