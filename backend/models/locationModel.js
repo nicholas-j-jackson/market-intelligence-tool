@@ -37,7 +37,7 @@ export const locationSchema = new Schema({
     type: {
         type: String,
         required: true
-    },
+    }
 });
 
 export const Location = mongoose.model('Location', locationSchema);
