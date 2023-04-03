@@ -3,10 +3,6 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 export const restaurantSchema = new Schema({
-    _id: {
-        type: String,
-        required: "The ID of the restaurant within MongoDB is required"
-    },
     bizId: {
         type: String,
         required: "The businessID specified by Yelp is required"
@@ -45,4 +41,4 @@ export const restaurantSchema = new Schema({
     },
 });
 
-export const Review = mongoose.model('Restaurant', restaurantSchema);
+export const Restaurant = mongoose.model('Restaurant', restaurantSchema);
