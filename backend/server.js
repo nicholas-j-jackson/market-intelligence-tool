@@ -6,6 +6,7 @@ import locationRoutes from './routes/locationRoutes.js';
 import priceRoutes from './routes/priceRoutes.js';
 import restaurantRoutes from './routes/restaurantRoutes.js';
 import reviewRoutes from './routes/reviewRoutes.js';
+import userRoutes from './routes/userRoutes.js';
 
 import dotenv from 'dotenv';
 
@@ -37,6 +38,7 @@ locationRoutes(app);
 priceRoutes(app);
 restaurantRoutes(app);
 reviewRoutes(app);
+userRoutes(app);
 
 app.get('/', (req, res) => {
     res.send(`Hello World! ${PORT}`);
