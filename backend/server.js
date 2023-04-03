@@ -4,6 +4,8 @@ import bodyParser from 'body-parser';
 import routes from './routes/foodRoutes.js';
 import locationRoutes from './routes/locationRoutes.js';
 import priceRoutes from './routes/priceRoutes.js';
+import restaurantRoutes from './routes/restaurantRoutes.js';
+import reviewRoutes from './routes/reviewRoutes.js';
 
 import dotenv from 'dotenv';
 
@@ -33,6 +35,8 @@ app.use(bodyParser.json());
 routes(app);
 locationRoutes(app);
 priceRoutes(app);
+restaurantRoutes(app);
+reviewRoutes(app);
 
 app.get('/', (req, res) => {
     res.send(`Hello World! ${PORT}`);
