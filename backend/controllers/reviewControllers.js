@@ -1,4 +1,4 @@
-import { Review } from "../models/reviewModel";
+import { Review } from '../models/reviewModel.js';
 
 export const getReviewsBybizId = (req, res) => {
     const type = req.params.type;

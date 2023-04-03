@@ -2,10 +2,9 @@ import {Restaurant} from '../models/restaurantModel.js';
 
 
 export const getRestaurantByCity = (req, res) => {
-    const type = req.params.type;
     const city = req.params.city;
 
-    Restaurant.find({"type": type, "City": city}, (err, restaurant) => {
+    Restaurant.find({"City": city}, (err, restaurant) => {
         if (err) {
             res.send(err);
         }
@@ -14,11 +13,30 @@ export const getRestaurantByCity = (req, res) => {
 }
 
 export const getRestaurantBybizId = (req, res) => {
-    const type = req.params.type;
     const bizId = req.params.bizId;
 
-    Restaurant.find({"type": type, "bizId": bizId}, (err, restaurant) => {
+    Restaurant.find({"bizId": bizId}, (err, restaurant) => {
         if (err) {
+            res.send(err);
+        }
+        res.json(restaurant);
+    })
+}
+
+
+export const getRestaurantByRestaurantName = (req, res) => {
+    const restaurantName = req.params.restaurantName;
+    Restaurant.find({"name": restaurantName}, (err, restaurant) => {
+        if (err){
+            res.send(err);
+        }  
+        res.json(restaurant);
+    })
+}
+
+export const getAllRestaurants = (req, res) => {
+    Restaurant.find({}, (err, restaurant) => {
+        if (err){
             res.send(err);
         }
         res.json(restaurant);
