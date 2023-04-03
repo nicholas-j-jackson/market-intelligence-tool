@@ -1,6 +1,6 @@
 import {getReviewsByCity, getReviewsBybizId} from '../controllers/reviewControllers.js'
 
-const reviewroutes = (app) => {
+const reviewRoutes = (app) => {
 
     // Create route to get all reviews for a specific city
     app.route('/reviews/city/:city')
@@ -15,4 +15,4 @@ const reviewroutes = (app) => {
    
 }
 
-export default reviewroutes;
+export default reviewRoutes;
