@@ -75,13 +75,13 @@ class App extends React.Component {
     updateLocation3 = (location) => {
         this.setState({location3: location});
 
-        let type = this.state.mapping.find(x => x.name === this.state.chain1).type;
+        let type = this.state.mapping.find(x => x.name === this.state.chain3).type;
         let newLocation = this.state.locations.find(x => x.address === location.split(',')[0]);
         const url = `http://localhost:3001/api/prices/type_id/${type}/` + newLocation.store_id;
         axios.get(url,).then(response => response.data)
         .then((data) => {
             this.setState({ location3Foods: data })
-            //console.log(this.state.location1Foods)
+
         })
 
     }
