@@ -8,7 +8,7 @@ class SelectRestaurantForm extends React.Component {
     constructor(props) {
         super(props);
     }
-    
+
     render(){
     return (
         <Form>
@@ -16,7 +16,7 @@ class SelectRestaurantForm extends React.Component {
                 <Form.Label>Select Restaurant</Form.Label>
                 <Form.Control as="select" custom onChange={e => this.props.updateLocation(e.target.value)}>
                     {this.props.locations.map((location) => {
-                         return <option>{location.name}, {location.address}</option>
+                         return <option>{location.address}, {location.city}, {location.state}</option>
                     })
                     }
                 </Form.Control>
