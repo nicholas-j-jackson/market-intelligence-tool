@@ -6,7 +6,6 @@ import {Row, Col, Form} from 'react-bootstrap';
 import FoodTable from './FoodTable';
 import SelectRestaurantForm from './selectRestaurantForm';
 import Header from './Header';
-import HomeScreen from './HomeScreen';
 
 
 class App extends React.Component {
