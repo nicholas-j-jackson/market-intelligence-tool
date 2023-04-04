@@ -52,7 +52,15 @@ class App extends React.Component {
         const url = `http://localhost:3001/api/prices/type_id/${type}/` + newLocation.store_id;
         axios.get(url,).then(response => response.data)
         .then((data) => {
-            this.setState({ location1Foods: data })
+            if (type === 'john'){
+                let newFoods = data.map(x => {
+                    return {item: x.item, size: x.size, price: x["price "]}
+                })
+                this.setState({ location1Foods: newFoods })
+            }
+            else{
+                this.setState({ location1Foods: data })
+            }
             //console.log(this.state.location1Foods)
         })
 
@@ -66,8 +74,15 @@ class App extends React.Component {
         const url = `http://localhost:3001/api/prices/type_id/${type}/` + newLocation.store_id;
         axios.get(url,).then(response => response.data)
         .then((data) => {
-            this.setState({ location2Foods: data })
-            //console.log(this.state.location2Foods)
+            if (type === 'john'){
+                let newFoods = data.map(x => {
+                    return {item: x.item, size: x.size, price: x["price "]}
+                })
+                this.setState({ location2Foods: newFoods })
+            }
+            else{
+                this.setState({ location2Foods: data })
+            }            //console.log(this.state.location2Foods)
         })
 
     }
@@ -80,8 +95,15 @@ class App extends React.Component {
         const url = `http://localhost:3001/api/prices/type_id/${type}/` + newLocation.store_id;
         axios.get(url,).then(response => response.data)
         .then((data) => {
-            this.setState({ location3Foods: data })
-
+            if (type === 'john'){
+                let newFoods = data.map(x => {
+                    return {item: x.item, size: x.size, price: x["price "]}
+                })
+                this.setState({ location3Foods: newFoods })
+            }
+            else{
+                this.setState({ location3Foods: data })
+            }
         })
 
     }
