@@ -1,26 +1,32 @@
 import Form from 'react-bootstrap/Form';
-import axios from 'axios';
-import { useState, useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
+import FoodTable from './FoodTable';
+import Row from 'react-bootstrap/Row';
 
-
-
-const SelectRestaurantForm = () => {
-
+class SelectRestaurantForm extends React.Component {
+    // Accept props from parent component
+    constructor(props) {
+        super(props);
+    }
+    
+    render(){
     return (
         <Form>
             <Form.Group controlId="exampleForm.SelectCustom">
                 <Form.Label>Select Restaurant</Form.Label>
-                <Form.Control as="select" custom>
-
-                    <option>Restaurant 1</option>
-                    <option>Restaurant 2</option>
-                    <option>Restaurant 3</option>
-                    <option>Restaurant 4</option>
-                    <option>Restaurant 5</option>
+                <Form.Control as="select" custom onChange={e => this.props.updateLocation(e.target.value)}>
+                    {this.props.locations.map((location) => {
+                         return <option>{location.name}, {location.address}</option>
+                    })
+                    }
                 </Form.Control>
             </Form.Group>
+
         </Form>
     )
+    }
+
+    
 };
 
 
