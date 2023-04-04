@@ -3,7 +3,7 @@ import {Table } from 'react-bootstrap';
 
 const FoodTable = (props) => {
     return (
-
+        <div>
         <Table striped bordered hover responsive>
 
             <thead>
@@ -16,22 +16,20 @@ const FoodTable = (props) => {
 
             <tbody>
                 {props.foods.map((food) => {
-                    if (food.address ===  props.location.split(', ')[1])
-                    {
-                        return (
+                    return (
                         <tr>
-                            <td width='40%'> {food.name}</td>
+                            <td width='40%'> {food.item}</td>
                             <td width='30%'> {food.size} </td>
                             <td width='30%'> {food.price}</td>
 
                         </tr>
-                        )
-                    }
-                    
-                })}        
+                        )                    
+                })} 
+
             </tbody>
 
         </Table>
+        </div>
     )
 };
 
