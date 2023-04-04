@@ -7,10 +7,11 @@ import Form from 'react-bootstrap/Form';
 
 import { useSelector, useDispatch } from 'react-redux';
 
-const HomeScreen = () => {
+function HomeScreen(props) {
 
     return (
-    <Container fluid expand="xl">
+        <div>
+        <Container fluid expand="xl">
         <Header />
 
         <Row>
@@ -18,10 +19,12 @@ const HomeScreen = () => {
             <Form> 
                 <Form.Group controlId="exampleForm.SelectCustom">
                 <Form.Label>Select Chain to Compare</Form.Label>
-                <Form.Control as="select" custom onChange={e => this.setState({restaurant1: e.target.value})}>
-                    <option>Jimmy Johns</option>
-                    <option>FireHouse Subs</option>
-                    <option>Jersey Mike's</option>
+                <Form.Control as="select" custom onChange={e => props.updateChain1(e)}>
+                    {props.chains.map((chain, index) => {
+                        return <option key={index}>{chain}</option>
+                    })}
+                    
+                    <option>{props.chain1}</option>
 
                     </Form.Control>
                 </Form.Group>
@@ -32,10 +35,10 @@ const HomeScreen = () => {
             <Form> 
                 <Form.Group controlId="exampleForm.SelectCustom">
                 <Form.Label>Select Chain to Compare</Form.Label>
-                <Form.Control as="select" custom onChange={e => this.setState({rest2: e.target.value})}>
-                    <option>Jimmy Johns</option>
-                    <option>FireHouse Subs</option>
-                    <option>Jersey Mike's</option>
+                <Form.Control as="select" custom onChange={e => props.updateChain2(e)}>
+                    {props.chains.map((chain, index) => {
+                        return <option key={index}>{chain}</option>
+                    })}
                     </Form.Control>
                 </Form.Group>
             </Form>
@@ -45,11 +48,10 @@ const HomeScreen = () => {
             <Form> 
                 <Form.Group controlId="exampleForm.SelectCustom">
                 <Form.Label>Select Chain to Compare</Form.Label>
-                <Form.Control as="select" custom onChange={e => this.setState({rest3: e.target.value})}>
-                    <option>Jimmy Johns</option>
-                    <option>FireHouse Subs</option>
-                    <option>Jersey Mike's</option>
-
+                <Form.Control as="select" custom onChange={e => props.updateChain3(e)}>
+                    {props.chains.map((chain, index) => {
+                        return <option key={index}>{chain}</option>
+                    })}
                     </Form.Control>
                 </Form.Group>
             </Form>
@@ -60,7 +62,7 @@ const HomeScreen = () => {
         <Row>
 
             <Col>
-            <SelectRestaurantForm />
+            <SelectRestaurantForm/>
             </Col>
 
             <Col>
@@ -93,7 +95,7 @@ const HomeScreen = () => {
       
         
     </Container>
-
+    </div>
     )
 }
 
