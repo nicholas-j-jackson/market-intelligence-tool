@@ -14,47 +14,27 @@ class App extends React.Component {
     super(props);
     
     this.state = {
-      locations: [{name: 'Jimmy Johns', address: '1234 Main St', city: 'Orlando', state: 'FL', zip: '32801', type:'john'},
-                  {name: 'Jimmy Johns', address: '5689 Main St', city: 'Orlando', state: 'FL', zip: '32801', type:'john'},
-                  {name: 'Jimmy Johns', address: '1496 4th St', city: 'Orlando', state: 'FL', zip: '32801', type:'john'},
-                  {name: 'FireHouse Subs', address: '6789 Main St', city: 'Orlando', state: 'FL', zip: '32801', type:'fire'},
-                  {name: 'FireHouse Subs', address: '0871 8th St', city: 'Orlando', state: 'FL', zip: '32801', type:'fire'},
-                  {name: 'FireHouse Subs', address: '456789 Ave', city: 'Orlando', state: 'FL', zip: '32801', type:'fire'},
-                  {name: 'Jersey Mike\'s', address: '1298 Main St', city: 'Orlando', state: 'FL', zip: '32801', type:'mike'},
-                  {name: 'Jersey Mike\'s', address: '4321 Main St', city: 'Orlando', state: 'FL', zip: '32801', type:'mike'},
-                  {name: 'Jersey Mike\'s', address: '0001 Main St', city: 'Orlando', state: 'FL', zip: '32801', type:'mike'},
-                ],
+      locations: [],
 
-        foods: [{name: 'Turkey', size: '6 inch', price: '$5.00', address: '1234 Main St'},
-                {name: 'Ham', size: '6 inch', price: '$5.00', address: '1234 Main St'},
-                {name: 'Roast Beef', size: '6 inch', price: '$5.00', address: '1234 Main St'},
-                {name: 'Turkey', size: '12 inch', price: '$7.00', address: '1234 Main St'},
-                {name: 'Ham', size: '12 inch', price: '$7.00', address: '5689 Main St'},
-                {name: 'Roast Beef', size: '12 inch', price: '$7.00', address: '1496 4th St'},
-                {name: 'Turkey', size: '6 inch', price: '$5.00', address: '6789 Main St'},
-                {name: 'Ham', size: '6 inch', price: '$5.00', address: '6789 Main St'},
-                {name: 'Roast Beef', size: '6 inch', price: '$5.00', address: '6789 Main St'},
-                {name: 'Turkey', size: '12 inch', price: '$7.00', address: '6789 Main St'},
-                {name: 'Ham', size: '12 inch', price: '$7.00', address: '0871 8th St'},
-                {name: 'Roast Beef', size: '12 inch', price: '$7.00', address: '456789 Ave'},
-                {name: 'Turkey', size: '6 inch', price: '$5.00', address: '1298 Main St'},
-                {name: 'Ham', size: '6 inch', price: '$5.00', address: '1298 Main St'},
-                {name: 'Roast Beef', size: '6 inch', price: '$5.00', address: '1298 Main St'},
-                {name: 'Turkey', size: '12 inch', price: '$7.00', address: '4321 Main St'},
-                {name: 'Ham', size: '12 inch', price: '$7.00', address: '4321 Main St'},
-                {name: 'Roast Beef', size: '12 inch', price: '$7.00', address: '0001 Main St'},
-            ],
+        mapping: [{name: 'Jimmy Johns', type:'john'},
+                    {name: 'FireHouse Subs', type:'fire'},
+                    {name: 'Jersey Mike\'s', type:'mike'}],
 
-
+        foods: [],
 
         chain1: 'Jimmy Johns',
-        chain2: 'Jimmy Johns',
-        chain3: 'FireHouse Subs',
+        chain2: 'FireHouse Subs',
+        chain3: 'Jersey Mike\'s',
         chains: ['Jimmy Johns', 'FireHouse Subs', 'Jersey Mike\'s'],
 
         location1: '',
         location2: '',
-        location3: ''
+        location3: '',
+
+        location1Foods: [],
+        location2Foods: [],
+        location3Foods: [],
+
 
     }
 
@@ -66,21 +46,51 @@ class App extends React.Component {
 
     updateLocation1 = (location) => {
         this.setState({location1: location});
+    
+        let type = this.state.mapping.find(x => x.name === this.state.chain1).type;
+        let newLocation = this.state.locations.find(x => x.address === location.split(',')[0]);
+        const url = `http://localhost:3001/api/prices/type_id/${type}/` + newLocation.store_id;
+        axios.get(url,).then(response => response.data)
+        .then((data) => {
+            this.setState({ location1Foods: data })
+            //console.log(this.state.location1Foods)
+        })
+
     }
 
     updateLocation2 = (location) => {
         this.setState({location2: location});
+
+        let type = this.state.mapping.find(x => x.name === this.state.chain2).type;
+        let newLocation = this.state.locations.find(x => x.address === location.split(',')[0]);
+        const url = `http://localhost:3001/api/prices/type_id/${type}/` + newLocation.store_id;
+        axios.get(url,).then(response => response.data)
+        .then((data) => {
+            this.setState({ location2Foods: data })
+            //console.log(this.state.location2Foods)
+        })
+
     }
 
     updateLocation3 = (location) => {
         this.setState({location3: location});
+
+        let type = this.state.mapping.find(x => x.name === this.state.chain1).type;
+        let newLocation = this.state.locations.find(x => x.address === location.split(',')[0]);
+        const url = `http://localhost:3001/api/prices/type_id/${type}/` + newLocation.store_id;
+        axios.get(url,).then(response => response.data)
+        .then((data) => {
+            this.setState({ location3Foods: data })
+            //console.log(this.state.location1Foods)
+        })
+
     }
 
 
 
   componentDidMount() {
       const url = 'http://localhost:3001/api/locations/state/FL';
-      axios.get(url).then(response => response.data)
+      axios.get(url,).then(response => response.data)
       .then((data) => {
         this.setState({ locations: data })
         console.log(this.state.locations)
@@ -88,9 +98,9 @@ class App extends React.Component {
       .catch((error) => {
         console.log(error);
       });
-  }
 
 
+  }  
 
   render() {
     return (
@@ -144,7 +154,7 @@ class App extends React.Component {
         <Row>
 
             <Col>
-            <SelectRestaurantForm locations={this.state.locations.filter(location => location.name == this.state.chain1)}
+            <SelectRestaurantForm locations={this.state.locations.filter(location => location.type === (this.state.mapping.filter(mapping => mapping.name === this.state.chain1).map(mapping => mapping.type)[0]))}
                                     chains={this.state.chains}
                                     chain={this.state.chain1}
                                     updateLocation={this.updateLocation1}
@@ -154,7 +164,7 @@ class App extends React.Component {
             </Col>
 
             <Col>
-            <SelectRestaurantForm locations={this.state.locations.filter(location => location.name == this.state.chain2)}
+            <SelectRestaurantForm locations={this.state.locations.filter(location => location.type === (this.state.mapping.filter(mapping => mapping.name === this.state.chain2).map(mapping => mapping.type)[0]))}
                                     chains={this.state.chains}
                                     chain={this.state.chain2}
                                     updateLocation={this.updateLocation2}
@@ -163,7 +173,7 @@ class App extends React.Component {
             </Col>
 
             <Col>
-            <SelectRestaurantForm locations={this.state.locations.filter(location => location.name == this.state.chain3)}
+            <SelectRestaurantForm locations={this.state.locations.filter(location => location.type === (this.state.mapping.filter(mapping => mapping.name === this.state.chain3).map(mapping => mapping.type)[0]))}
                                     chains={this.state.chains}
                                     chain={this.state.chain3}
                                     updateLocation={this.updateLocation3}
@@ -176,26 +186,23 @@ class App extends React.Component {
         <Row>
             <Col>
                 <FoodTable location={this.state.location1} 
-                            foods={this.state.foods}
+                            foods={this.state.location1Foods}
                 />
             </Col>
 
             <Col>
                 <FoodTable location={this.state.location2}
-                            foods={this.state.foods}
+                            foods={this.state.location2Foods}
                 />
             </Col>
             
             <Col>
             <FoodTable location={this.state.location3}
-                        foods={this.state.foods}
+                        foods={this.state.location3Foods}
             />
             </Col>
 
         </Row>
-
-
-
 
         
     </Container>
