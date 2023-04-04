@@ -1,14 +1,14 @@
 import React from 'react';
-import { Container, Row, Col} from 'react-bootstrap';
+import { Container} from 'react-bootstrap';
+import HomeScreen from './HomeScreen';
 
 const  App = () => {
+
   return (
-    <div className="App">
-      <h1>
-        Market Intelligence Tool
-        </h1>
-    </div>
-  );
+    <Container fluid expand="xl">
+      <HomeScreen/>      
+    </Container>
+    );
 }
 
 export default App;

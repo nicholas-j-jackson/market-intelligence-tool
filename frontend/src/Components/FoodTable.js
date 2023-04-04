@@ -1,5 +1,6 @@
 import Table from 'react-bootstrap/Table';
 
+
 function FoodTable() {
     return (
 
