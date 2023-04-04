@@ -1,8 +1,15 @@
 import {Table } from 'react-bootstrap';
+import React from 'react';
 
 
-const FoodTable = (props) => {
-    return (
+class FoodTable extends React.Component {
+    // Accept props from parent component
+    constructor(props) {
+        super(props);
+    }
+
+    render(){
+        return (
         <div>
         <Table striped bordered hover responsive>
 
@@ -15,7 +22,7 @@ const FoodTable = (props) => {
             </thead>
 
             <tbody>
-                {props.foods.map((food) => {
+                {this.props.foods.map((food) => {
                     return (
                         <tr>
                             <td width='40%'> {food.item}</td>
@@ -30,7 +37,7 @@ const FoodTable = (props) => {
 
         </Table>
         </div>
-    )
+    )}
 };
 
 export default FoodTable;
