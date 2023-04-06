@@ -63,9 +63,8 @@ export const createUser = (req, res) => {
     const first_name = req.body.first_name;
     const last_name = req.body.last_name;
     const email = req.body.email;
-    let userFound = false;
 
-    User.find({ "username": username }, (err, user) => {
+    User.find({$or:[{"username": username},{"email": email}]}, (err, user) => {
         if (err) {
             res.status(400).json({
                 "status": "catch_error",
@@ -73,32 +72,13 @@ export const createUser = (req, res) => {
             })
         }
         if (user.length > 0) {
-            userFound = true;
             res.json({
-                "status": "duplicate_username",
-                "message": "A user already exists with the given username."
+                "status": "duplicate_username_or_email",
+                "message": "A user already exists with the given username or email."
             })
         }
     })
 
-    if (!userFound) {
-        User.find({ "email": email }, (err, user) => {
-            if (err) {
-                res.status(400).json({
-                    "status": "catch_error",
-                    "message": "An error was thrown while checking for duplicate usernames."
-                })
-            }
-            if (user.length > 0) {
-                userFound = true;
-                res.json({
-                    "status": "duplicate_email",
-                    "message": "A user already exists with the given email."
-                })
-            }
-        })
-    }
-    
     const saltRounds = 10;
     bcrypt.hash(req.body.password, saltRounds)
         .then(hashed => {
@@ -124,7 +104,6 @@ export const createUser = (req, res) => {
                 "status": "catch_error",
                 "message": "An error was thrown while hashing the password."
             })
-            res.json(err);
         })
 };
 

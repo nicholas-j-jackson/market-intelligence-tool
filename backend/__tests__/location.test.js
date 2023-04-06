@@ -73,12 +73,12 @@ describe('location tests', ()=> {
             it('should return null', async () => {
                 const fake_type = 'mikes';
                 const fake_store_id = 123;
-                await supertest(app).get(`/locations/type_id/${fake_type}/${fake_store_id}`).expect(null);
+                await supertest(app).get(`/api/locations/type_id/${fake_type}/${fake_store_id}`).expect(null);
             })
         })
         describe('given location does exist', () => {
             it('should return 200 status and location information', async () => {
-                const {body, statusCode} = await supertest(app).get(`/locations/type_id/${locationPayload1.type}/${locationPayload1.store_id}`);
+                const {body, statusCode} = await supertest(app).get(`/api/locations/type_id/${locationPayload1.type}/${locationPayload1.store_id}`);
                 expect(body.store_id).toBe(locationPayload1.store_id);
                 expect(body.reference).toBe(locationPayload1.reference);
                 expect(body.address).toBe(locationPayload1.address);
@@ -95,7 +95,7 @@ describe('location tests', ()=> {
     describe('getting locations by type and state', () => {
         describe('getting both jersey mikes in NJ', () => {
             it('should return 2 locations', async () => {
-                const {body, statusCode} = await supertest(app).get(`/locations/type_state/${locationPayload1.type}/${locationPayload1.state}`);
+                const {body, statusCode} = await supertest(app).get(`/api/locations/type_state/${locationPayload1.type}/${locationPayload1.state}`);
                 expect(body.length).toBe(2);
                 expect(body[0].store_id).toBe(146);
                 expect(body[1].store_id).toBe(137);
@@ -106,14 +106,14 @@ describe('location tests', ()=> {
             it('should return empty array', async () => {
                 const fake_type = 'mikes';
                 const fake_store_id = 123;
-                await supertest(app).get(`/locations/type_state/${fake_type}/${fake_store_id}`).expect('[]');
+                await supertest(app).get(`/api/locations/type_state/${fake_type}/${fake_store_id}`).expect('[]');
             })
         })
     })
     describe('getting locations by state', () => {
         describe('getting all locations in NJ', () => {
             it('should return 3 locations', async () => {
-                const {body, statusCode} = await supertest(app).get(`/locations/state/${"NJ"}`);
+                const {body, statusCode} = await supertest(app).get(`/api/locations/state/${"NJ"}`);
                 expect(body.length).toBe(3);
                 expect(body[0].store_id).toBe(146);
                 expect(body[1].store_id).toBe(137);
@@ -123,14 +123,14 @@ describe('location tests', ()=> {
         })
         describe('no locations in given state', () => {
             it('should return empty array', async () => {
-                await supertest(app).get(`/locations/state/${"NY"}`).expect('[]');
+                await supertest(app).get(`/api/locations/state/${"NY"}`).expect('[]');
             })
         })
     })
     describe('getting locations by zip code', () => {
         describe('getting all locations in 8527', () => {
             it('should return 2 locations', async () => {
-                const {body, statusCode} = await supertest(app).get(`/locations/zip/${8527}`);
+                const {body, statusCode} = await supertest(app).get(`/api/locations/zip/${8527}`);
                 expect(body.length).toBe(2);
                 expect(body[0].store_id).toBe(137);
                 expect(body[1].store_id).toBe(150);
@@ -139,13 +139,13 @@ describe('location tests', ()=> {
         })
         describe('no locations in given zip code', () => {
             it('should return empty array', async () => {
-                await supertest(app).get(`/locations/state/${9000}`).expect('[]');
+                await supertest(app).get(`/api/locations/state/${9000}`).expect('[]');
             })
         })
     })
     describe ('getting all location objects', ()=> {
         it('should return all 3 location', async () => {
-            const {body, statusCode} = await supertest(app).get(`/locations`)
+            const {body, statusCode} = await supertest(app).get(`/api/locations`)
             expect(body.length).toBe(3);
             expect(body[0].store_id).toBe(146);
             expect(body[1].store_id).toBe(137);

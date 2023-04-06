@@ -1,16 +1,16 @@
 import {getUsers, getUserByUsername, createUser, loginUser} from '../controllers/userControllers.js'
 
 const userRoutes = (app) => {
-    app.route('/users')
+    app.route('/api/users')
         .get(getUsers)
         
-    app.route('/users/:username')
+    app.route('/api/users/:username')
         .get(getUserByUsername)
 
-    app.route('/users/login')
+    app.route('/api/users/login')
         .post(loginUser);
 
-    app.route('/users/create')
+    app.route('/api/users/create')
         .post(createUser);
 }
 
