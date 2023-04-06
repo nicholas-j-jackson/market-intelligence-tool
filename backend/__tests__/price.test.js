@@ -64,12 +64,12 @@ describe('price tests', ()=> {
                 const fake_type = 'mikes';
                 const fake_store_id = 123;
                 const fake_item = 'Turkey Sub'
-                await supertest(app).get(`/prices/type_id_item/${fake_type}/${fake_store_id}/${fake_item}`).expect(null)
+                await supertest(app).get(`/api/prices/type_id_item/${fake_type}/${fake_store_id}/${fake_item}`).expect(null)
             });
         });
         describe('given price does exist', () => {
             it('should return 200 status and price information', async () => {
-                const {body, statusCode} = await supertest(app).get(`/prices/type_id_item/${pricePayload1.type}/${pricePayload1.store_id}/${pricePayload1.item}`)
+                const {body, statusCode} = await supertest(app).get(`/api/prices/type_id_item/${pricePayload1.type}/${pricePayload1.store_id}/${pricePayload1.item}`)
                 expect(body.item).toBe("Turkey Sub")
                 expect(body.price).toBe(9.99)
                 expect(body.type).toBe("mikes")
@@ -81,7 +81,7 @@ describe('price tests', ()=> {
     describe('getting multiple price objects from one location', ()=> {
         describe('location with 2 items', () => {
             it('should return 200 status and 2 different prices objects', async () => {
-                const {body, statusCode} = await supertest(app).get(`/prices/type_id/${pricePayload1.type}/${pricePayload1.store_id}`)
+                const {body, statusCode} = await supertest(app).get(`/api/prices/type_id/${pricePayload1.type}/${pricePayload1.store_id}`)
                 expect(body[0].item).toBe("Turkey Sub")
                 expect(body[0].price).toBe(9.99)
                 expect(body[0].type).toBe("mikes")
@@ -97,13 +97,13 @@ describe('price tests', ()=> {
             it('should return empty array', async () => {
                 const fake_type = "Burger King";
                 const fake_store_id = 123;
-                await supertest(app).get(`/prices/type_id/${fake_type}/${fake_store_id}`).expect("[]")
+                await supertest(app).get(`/api/prices/type_id/${fake_type}/${fake_store_id}`).expect("[]")
             })
         })
     })
     describe ('getting all price objects', ()=> {
         it('should return all 3 price objects', async () => {
-            const {body, statusCode} = await supertest(app).get(`/prices`)
+            const {body, statusCode} = await supertest(app).get(`/api/prices`)
             expect(body[0].item).toBe("Turkey Sub")
             expect(body[0].price).toBe(9.99)
             expect(body[0].type).toBe("mikes")
