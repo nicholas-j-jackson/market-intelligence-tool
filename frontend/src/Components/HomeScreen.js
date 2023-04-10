@@ -4,7 +4,6 @@ import Header from './Header';
 import FoodTable from './FoodTable';
 import SelectRestaurantForm from './selectRestaurantForm';
 import Form from 'react-bootstrap/Form';
-
 import { useSelector, useDispatch } from 'react-redux';
 
 function HomeScreen(props) {
@@ -12,6 +11,7 @@ function HomeScreen(props) {
     return (
         <div>
         <Container fluid expand="xl">
+
         <Header />
 
         <Row>

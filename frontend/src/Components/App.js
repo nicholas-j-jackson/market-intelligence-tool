@@ -3,9 +3,11 @@ import { Container, NavItem} from 'react-bootstrap';
 import axios from 'axios';
 import {Row, Col, Form} from 'react-bootstrap';
 
+import "intro.js/introjs.css";
 import FoodTable from './FoodTable';
 import SelectRestaurantForm from './selectRestaurantForm';
 import Header from './Header';
+import Demo from "./Demo";
 
 
 class App extends React.Component {
@@ -127,10 +129,13 @@ class App extends React.Component {
   render() {
     return (
       <Container fluid expand="xl">
-
+        
         <Header />
+    
+        <Demo></Demo>
+        <br/>
 
-        <Row>
+        <Row id="step1">
             <Col>
             <Form> 
                 <Form.Group controlId="exampleForm.SelectCustom">
@@ -172,8 +177,7 @@ class App extends React.Component {
             </Col>
         </Row>
 
-
-        <Row>
+        <Row id="step2">
 
             <Col>
             <SelectRestaurantForm locations={this.state.locations.filter(location => location.type === (this.state.mapping.filter(mapping => mapping.name === this.state.chain1).map(mapping => mapping.type)[0]))}
@@ -204,7 +208,7 @@ class App extends React.Component {
             </Col>
 
         </Row>
-            
+        
         <Row>
             <Col>
                 <FoodTable location={this.state.location1} 
