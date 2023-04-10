@@ -13,11 +13,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function Header() {
   return (
     <Navbar bg="light" expand="xl">
-        <Navbar.Brand href="#">Market Intelligence Tool</Navbar.Brand>
+        <Navbar.Brand href="/">Market Intelligence Tool</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav" me-auto>
           <Nav className="me-auto">
-            <Nav.Link href="#reviews">Reviews</Nav.Link>
+            <Nav.Link href="/reviews">Reviews</Nav.Link>
             <NavDropdown title="Account" id="basic-nav-dropdown">
               <NavDropdown.Item href="#login">Login</NavDropdown.Item>
               <NavDropdown.Item href="#register">Register </NavDropdown.Item>
