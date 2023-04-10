@@ -4,6 +4,8 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 
 import { locationsReducer } from './reducers/locationsReducers'
 import { location1PriceReducer, location2PriceReducer, location3PriceReducer } from './reducers/priceReducers'
+import { reviewReducer } from './reducers/reviewReducers'
+import { restaurantReducer } from './reducers/restaurantReducers'
 
 const initialState = {
     locations: {},
@@ -11,6 +13,8 @@ const initialState = {
     location1Prices: [],
     location2Prices: [],
     location3Prices: [],
+
+    reviewList: {},
 
 
   }
@@ -20,6 +24,8 @@ const reducer = combineReducers({
   location1PriceList: location1PriceReducer,
   location2PriceList: location2PriceReducer,
   location3PriceList: location3PriceReducer,
+  reviewList: reviewReducer,
+  restaurantList: restaurantReducer,
 
 })
 
