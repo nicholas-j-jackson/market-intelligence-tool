@@ -9,6 +9,7 @@ import FoodTable from './FoodTable';
 import SelectRestaurantForm from './selectRestaurantForm';
 import Header from './Header';
 import HomeScreen from './HomeScreen';
+import ReviewScreen from './ReviewScreen';
 
 const App = () => {
     return (
@@ -18,7 +19,7 @@ const App = () => {
                 <Router>
                     <Routes>
                         <Route exact path="/" element={<HomeScreen/>}  />
-                        <Route path="/review" element={<div>review</div>} />
+                        <Route path="/reviews" element={<ReviewScreen/>} />
                     </Routes>
                 </Router>
             </Fragment>
