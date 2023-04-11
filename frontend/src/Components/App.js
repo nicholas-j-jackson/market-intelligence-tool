@@ -110,8 +110,6 @@ class App extends React.Component {
 
     }
 
-
-
   componentDidMount() {
       const url = 'http://localhost:3001/api/locations/state/FL';
       axios.get(url,).then(response => response.data)
@@ -123,8 +121,8 @@ class App extends React.Component {
         console.log(error);
       });
 
+  }
 
-  }  
 
   render() {
     return (
@@ -133,7 +131,6 @@ class App extends React.Component {
         <Header />
     
         <Demo></Demo>
-        <br/>
 
         <Row id="step1">
             <Col>
@@ -210,6 +207,7 @@ class App extends React.Component {
         </Row>
         
         <Row>
+
             <Col>
                 <FoodTable location={this.state.location1} 
                             foods={this.state.location1Foods}

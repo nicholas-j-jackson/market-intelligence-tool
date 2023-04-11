@@ -1,11 +1,10 @@
 .world {
-    background: #4EC670;
+    background: #4eb8c6;
 	border-color: rgba(255, 255, 255, 0.692);
 	color: #fff;
-	padding: 5px 10px;
-	border-radius: 3px;
+	padding: 1px 4px;
+	border-radius: 5px;
 	position: relative;
-	top: 10px;
-	bottom: -20px;
-	left: 159vh;
+	top: 2px;
+	left: 93%;
 }

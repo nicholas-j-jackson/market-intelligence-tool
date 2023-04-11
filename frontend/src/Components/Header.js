@@ -6,21 +6,26 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 // Make navbar cover the entire width of the screen
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import logo from '../assets/logo.png';
 
 
 
 function Header() {
   return (
     <Navbar bg="light" expand="xl">
-        <Navbar.Brand href="#">Market Intelligence Tool</Navbar.Brand>
+        
+        <Navbar.Brand href="/">
+          <img src={logo} alt="Logo" width="40px" height="40px"/>
+          Market Intelligence Tool
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav" me-auto>
           <Nav className="me-auto">
-            <Nav.Link href="#reviews">Reviews</Nav.Link>
+            <Nav.Link href="reviews">Reviews</Nav.Link>
             <NavDropdown title="Account" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#login">Login</NavDropdown.Item>
-              <NavDropdown.Item href="#register">Register </NavDropdown.Item>
+              <NavDropdown.Item href="login">Login</NavDropdown.Item>
+              <NavDropdown.Item href="logout">Logout</NavDropdown.Item>
+              <NavDropdown.Item href="register">Register </NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>

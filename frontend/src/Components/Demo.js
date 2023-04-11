@@ -12,8 +12,8 @@ class Demo extends Component {
             initialStep: 0,
             steps: [
                 {
-                    title: "Welcome",
-                    intro: "Intro to Market Intelligence Tool!",
+                    title: "Welcome to",
+                    intro: "Market Intelligence Tool!",
                     position: "middle",
                 },
                 {
@@ -55,7 +55,7 @@ class Demo extends Component {
                             }}
                     onExit={this.onExit}
                 />
-                <button class="world" onClick={this.toggleSteps} >Start Tutorial</button>
+                <button class="world" onClick={this.toggleSteps}>Start Tutorial</button>
 
             </div>
         );
