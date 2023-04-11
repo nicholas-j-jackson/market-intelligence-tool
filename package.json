@@ -17,7 +17,7 @@
   "homepage": "https://github.com/nicholas-j-jackson/market-intelligence-tool#readme",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
-    "bcrypt-nodejs": "0.0.3",
+    "bcrypt": "^5.1.0",
     "bootstrap": "^5.2.3",
     "concurrently": "^7.6.0",
     "cors": "^2.8.5",
