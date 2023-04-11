@@ -1,7 +1,23 @@
 {
+  "type": "module",
+  "name": "market-intelligence-tool",
+  "description": "",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicholas-j-jackson/market-intelligence-tool.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nicholas-j-jackson/market-intelligence-tool/issues"
+  },
+  "homepage": "https://github.com/nicholas-j-jackson/market-intelligence-tool#readme",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
-    "bcrypt": "^5.1.0",
+    "bcrypt-nodejs": "0.0.3",
     "bootstrap": "^5.2.3",
     "concurrently": "^7.6.0",
     "cors": "^2.8.5",
@@ -10,13 +26,14 @@
     "mongoose": "^6.8.4",
     "nodemon": "^2.0.20",
     "react": "^18.2.0",
-    "react-bootstrap": "^2.7.0"
+    "react-bootstrap": "^2.7.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.10.0"
   },
   "scripts": {
     "start": "node backend/server.js",
     "server": "nodemon backend/server.js",
     "client": "npm start --prefix frontend",
     "dev": "concurrently \"npm run server\" \"npm run client\""
-  },
-  "type": "module"
+  }
 }
