@@ -45,6 +45,18 @@ export const getLocationsByTypeAndState = (req, res) => {
     })
 }
 
+export const getLocationsByTypeAndZip = (req, res) => {
+    const type = req.params.type;
+    const zip = req.params.zip;
+
+    Location.find({"type": type, "zip": zip}, (err, location) => {
+        if (err) {
+            res.send(err);
+        }
+        res.json(location);
+    })
+}
+
 export const getLocationsByState = (req, res) => {
     const state = req.params.state;
 
