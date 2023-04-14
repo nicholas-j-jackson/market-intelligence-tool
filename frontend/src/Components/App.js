@@ -10,6 +10,7 @@ import SelectRestaurantForm from './selectRestaurantForm';
 import Header from './Header';
 import HomeScreen from './HomeScreen';
 import ReviewScreen from './ReviewScreen';
+import RegionalPriceScreen from './RegionalPriceScreen';
 
 const App = () => {
     return (
@@ -20,6 +21,7 @@ const App = () => {
                     <Routes>
                         <Route exact path="/" element={<HomeScreen/>}  />
                         <Route path="/reviews" element={<ReviewScreen/>} />
+                        <Route path="/regional" element={<RegionalPriceScreen/>} />
                     </Routes>
                 </Router>
             </Fragment>
