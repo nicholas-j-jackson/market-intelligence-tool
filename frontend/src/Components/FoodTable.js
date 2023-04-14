@@ -17,7 +17,7 @@ class FoodTable extends React.Component {
                 <tr>
                     <th width='40%'>Item</th>
                     <th width='30%'>Size</th>
-                    <th width='30%'>Price</th>
+                    <th width='30%'>{this.props.priceString}</th>
                 </tr>
             </thead>
 

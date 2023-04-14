@@ -199,7 +199,7 @@ const HomeScreen = () => {
                     ) : errorLocation1 ? (
                         <Message variant='danger'>{errorLocation1}</Message>
                     ) : (
-                        <FoodTable location={location1} foods={location1Prices}/>
+                        <FoodTable location={location1} foods={location1Prices} priceString={"Price"}/>
                     )}
                 </Col>
     
@@ -209,7 +209,7 @@ const HomeScreen = () => {
                     ) : errorLocation2 ? (
                         <Message variant='danger'>{errorLocation2}</Message>
                     ) : (
-                        <FoodTable location={location2} foods={location2Prices}/>
+                        <FoodTable location={location2} foods={location2Prices} priceString={"Price"}/>
                     )}
                 </Col>
                 
