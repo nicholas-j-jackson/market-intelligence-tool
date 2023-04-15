@@ -6,7 +6,8 @@ import Header from './Header';
 import HomeScreen from './HomeScreen';
 import ReviewScreen from './ReviewScreen';
 import RegionalPriceScreen from './RegionalPriceScreen';
-import Demo from './Demo'
+import LoginScreen from './LoginScreen';
+
 
 const App = () => {
     return (
@@ -18,6 +19,7 @@ const App = () => {
                         <Route exact path="/" element={<HomeScreen/>}  />
                         <Route path="/reviews" element={<ReviewScreen/>} />
                         <Route path="/regional" element={<RegionalPriceScreen/>} />
+                        <Route path="/login" element={<LoginScreen/>} />
                     </Routes>
                 </Router>
             </Fragment>
