@@ -9,6 +9,8 @@ class FoodTable extends React.Component {
     }
 
     render(){
+        console.log(this.props.foods)
+
         return (
         <div>
         <Table striped bordered hover responsive>
@@ -27,7 +29,9 @@ class FoodTable extends React.Component {
                         <tr>
                             <td width='40%'> {food.item}</td>
                             <td width='30%'> {food.size} </td>
-                            <td width='30%'> {food.price}</td>
+                            {food.type == 'john' ? <td width='30%'> {food['price ']}</td> : 
+                            <td width='30%'> {food.price}</td> 
+                            }
 
                         </tr>
                         )                    
