@@ -48,6 +48,8 @@ const ReviewScreen = () => {
     const [reviewsToDisplay, setReviewsToDisplay] = useState([]);
     const [index, setIndex] = useState(0);
 
+    const [seed, setSeed] = useState(0);
+
 
     const [pageNumber, setPageNumber] = useState(0);
     const incrementPageNumber = () => {
@@ -56,25 +58,30 @@ const ReviewScreen = () => {
         }
         setPageNumber(pageNumber + 1);
         setIndex(index + 9);
-        updateReviewsToDisplay();
+        updateReviewsToDisplay(false);
         console.log(pageNumber, index)
 
     }
 
     const decrementPageNumber = () => {
         console.log(pageNumber, index)
-        if (pageNumber === 0) {
+        if (pageNumber === -1) {
             return;
         }
-
+        if (pageNumber === 0) {
+            setPageNumber(0);
+            setIndex(0);
+            updateReviewsToDisplay(true);
+            return;
+        }
         setPageNumber(pageNumber - 1);
         setIndex(index - 9);
-        updateReviewsToDisplay();
+        updateReviewsToDisplay(true);
         
     }
 
 
-    const updateReviewsToDisplay = () => {
+    const updateReviewsToDisplay = (decremented) => {
         
         
 
@@ -82,9 +89,12 @@ const ReviewScreen = () => {
         if (reviews) {
             let temp = reviews.filter((review) => review.bizId === rest);
             let temp2 = temp.slice(index, Math.min(temp.length, index + 9));
+
             //console.log(index, temp.length, index + 9)
             //console.log(temp2)
             setReviewsToDisplay(temp2);
+
+            setSeed(Math.random());
         }
     }
 
@@ -95,7 +105,7 @@ const ReviewScreen = () => {
         setRest(bizID);
         setPageNumber(0);
         setIndex(0);
-        updateReviewsToDisplay(bizID);
+        updateReviewsToDisplay(false);
     }
 
     const updateCity = (city) => {
@@ -113,7 +123,7 @@ const ReviewScreen = () => {
         dispatch(listRestaurantsByCity(city));
         dispatch(listReviewsByCity(city));
 
-        updateReviewsToDisplay();
+        updateReviewsToDisplay(false);
     }, [dispatch]);
 
 
@@ -162,8 +172,8 @@ const ReviewScreen = () => {
                                     />
             </Row>
 
-            { loadingReviews ? <Loader /> : errReviews ? <Message variant='danger'>{errReviews}</Message>:  (reviews.length == 0) ? <Message variant='danger'>Select a location</Message>:
-            <Container fluid expand='xl'>
+            { loadingReviews ? <Loader /> : errReviews ? <Message variant='danger'>{errReviews}</Message>:  (reviews == undefined || reviews.length == 0) ? <Message variant='danger'>Select a location</Message>:
+            <Container fluid expand='xl' key={seed}>
             <Row>
                 <Col width='100%'>
                     {reviewsToDisplay[0] == undefined ? <Message variant='danger'>No reviews for this location</Message> : <ReviewBox review={reviewsToDisplay} index={0}/>}
@@ -208,7 +218,7 @@ const ReviewScreen = () => {
                 
 
             <Row>
-                <Button onClick={decrementPageNumber} disabled={pageNumber == 0}> Previous</Button>
+                <Button onClick={decrementPageNumber} disabled={pageNumber == -1}> Previous</Button>
                 <Button onClick={incrementPageNumber} disabled={reviewsToDisplay.length<9}>Next</Button>
                 </Row>
 
