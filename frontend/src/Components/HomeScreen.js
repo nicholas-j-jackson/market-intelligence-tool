@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import { Container, Row, Col, Dropdown} from 'react-bootstrap';
 import Header from './Header';
 import FoodTable from './FoodTable';
@@ -14,6 +14,7 @@ import { listLocation1Prices, listLocation2Prices, listLocation3Prices } from '.
 
 import Loader from './Loader';
 import Message from './Message';
+import Demo from './Demo';
 
 const HomeScreen = () => {
     const dispatch = useDispatch();
@@ -116,7 +117,8 @@ const HomeScreen = () => {
 
     return (
         <Container fluid expand="xl">
-            <Row>
+        <Demo></Demo>
+            <Row id="step1">
                 <Col>
                 <Form> 
                     <Form.Group controlId="exampleForm.SelectCustom">
@@ -161,7 +163,7 @@ const HomeScreen = () => {
             </Row>
     
     
-            <Row>
+            <Row id="step2">
     
             <Col>
                 <SelectRestaurantForm locations={filterLocations(chain1)}
@@ -192,7 +194,7 @@ const HomeScreen = () => {
 
             </Row>
                 
-            <Row>
+            <Row id="step3">
                 <Col>
                     {loadingLocation1 ? (
                         <Loader />

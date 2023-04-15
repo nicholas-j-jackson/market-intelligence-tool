@@ -1,16 +1,12 @@
 import React, { Fragment } from 'react';
-import { Container, NavItem} from 'react-bootstrap';
-import axios from 'axios';
-import {Row, Col, Form} from 'react-bootstrap';
+import { Container} from 'react-bootstrap';
 import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
-import { Switch } from 'react-router-dom';
-
-import FoodTable from './FoodTable';
-import SelectRestaurantForm from './selectRestaurantForm';
+import "intro.js/introjs.css";
 import Header from './Header';
 import HomeScreen from './HomeScreen';
 import ReviewScreen from './ReviewScreen';
 import RegionalPriceScreen from './RegionalPriceScreen';
+import Demo from './Demo'
 
 const App = () => {
     return (

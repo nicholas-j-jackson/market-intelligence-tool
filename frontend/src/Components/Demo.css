@@ -1,0 +1,10 @@
+.world {
+    background: #4eb8c6;
+	border-color: rgba(255, 255, 255, 0.692);
+	color: #fff;
+	padding: 1px 4px;
+	border-radius: 5px;
+	position: relative;
+	top: 2px;
+	left: 93%;
+}

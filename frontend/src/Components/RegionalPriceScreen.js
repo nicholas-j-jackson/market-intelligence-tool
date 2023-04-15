@@ -6,7 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { listLocations } from '../actions/locationsActions';
 import { listRegion1Prices, listRegion2Prices} from '../actions/regionalPriceActions';
 import SelectRegionForm from './selectRegionForm';
-
+import "intro.js/introjs.css";
+import Demo from './Demo'
 import Loader from './Loader';
 import Message from './Message';
 
@@ -102,7 +103,8 @@ const RegionalPriceScreen = () => {
 
     return (
         <Container fluid expand="xl">
-            <Row>
+            <Demo/>
+            <Row id ="step1">
                 <Col>
                 <Form> 
                     <Form.Group controlId="exampleForm.SelectCustom">
@@ -119,7 +121,7 @@ const RegionalPriceScreen = () => {
             </Row>
     
     
-            <Row>
+            <Row id ="step2">
     
             <Col>
                 <SelectRegionForm cities={filterCities(chain1)}
@@ -135,7 +137,7 @@ const RegionalPriceScreen = () => {
 
             </Row>
                 
-            <Row>
+            <Row id ="step3">
                 <Col>
                     {loadingRegion1 ? (
                         <Loader />

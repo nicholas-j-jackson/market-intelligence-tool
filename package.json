@@ -4,7 +4,6 @@
   "description": "",
   "version": "1.0.0",
   "main": "index.js",
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nicholas-j-jackson/market-intelligence-tool.git"
@@ -23,6 +22,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "intro.js": "^7.0.1",
     "mongoose": "^6.8.4",
     "nodemon": "^2.0.20",
     "react": "^18.2.0",
