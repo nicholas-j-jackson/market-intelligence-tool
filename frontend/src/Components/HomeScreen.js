@@ -158,6 +158,9 @@ const HomeScreen = () => {
         locationPrices = locationPrices.map(x => {
             x._id = 0;
             x.time = "";
+            if (x.type === 'john'){
+                x.price = x['price '];
+            }
             return x;
         });
 
@@ -169,15 +172,16 @@ const HomeScreen = () => {
         );
 
 
-
-        if (priceSortType === 'Low-High'){
+        
+        if (priceSortType === 'Low-High' && filteredPrices.length > 0){
+            
             filteredPrices.sort((a, b) => (a.price > b.price) ? 1 : -1);
         }
         else{
             filteredPrices.sort((a, b) => (a.price < b.price) ? 1 : -1);
         }
         
-
+        
         // Remove non-ASCII characters
         filteredPrices = filteredPrices.map(x => {
             x.item = x.item.replace(/[^\x00-\x7F]/g, "");
@@ -189,6 +193,7 @@ const HomeScreen = () => {
             x.item = x.item.replace(/[^a-zA-Z0-9 ]/g, "");
             return x;
         });
+
 
         // Remove non-ASCII characters from size
         filteredPrices = filteredPrices.map(x => {
@@ -202,13 +207,15 @@ const HomeScreen = () => {
             return x;
         });
 
+
         if (minPrice > 0){
-            filteredPrices = filteredPrices.filter(x => x.price >= minPrice);
+            filteredPrices = filteredPrices.filter(x => parseFloat(x.price) >= minPrice);
         }
 
         if (maxPrice < 100){
-            filteredPrices = filteredPrices.filter(x => x.price <= maxPrice);
+            filteredPrices = filteredPrices.filter(x => parseFloat(x.price) <= maxPrice);
         }
+
 
         return filteredPrices;
     }
@@ -552,7 +559,7 @@ const HomeScreen = () => {
                     ) : errorLocation3 ? (
                         <Message variant='danger'>{errorLocation3}</Message>
                     ) : (
-                        <FoodTable location={location3} foods={filterPrices(location3Prices)}/>
+                        <FoodTable location={location3} foods={filterPrices(location3Prices)} priceString={"Price"}/>
                     )}
                 </Col>
     
