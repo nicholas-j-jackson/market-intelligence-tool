@@ -11,7 +11,7 @@ class ReviewBox extends React.Component {
 
     render(){
         return (
-            <Card style={{ width: '18rem' }}>
+            <Card>
                 <Card.Body>
                     <Card.Title>{(this.props.review[this.props.index]).address}</Card.Title>
                     <Card.Subtitle className="mb-2 text-muted">{(this.props.review[this.props.index]).rating}</Card.Subtitle>
