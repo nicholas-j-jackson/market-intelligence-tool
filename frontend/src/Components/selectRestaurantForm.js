@@ -10,22 +10,22 @@ class SelectRestaurantForm extends React.Component {
     }
 
     render(){
-    return (
-        <Form>
-            <Form.Group controlId="exampleForm.SelectCustom">
-                <Form.Label>Select Restaurant</Form.Label>
-                <Form.Control as="select" custom onChange={e => this.props.updateLocation(e.target.value)}>
-                    {this.props.locations.map((location) => {
-                         return <option>{location.address}, {location.city}, {location.state}</option>
-                    })
-                    }
-                </Form.Control>
-            </Form.Group>
-
-        </Form>
-    )
+        return (
+            <Form>
+                <Form.Group controlId="exampleForm.SelectCustom">
+                    <Form.Label>Select Restaurant</Form.Label>
+                    <Form.Control as="select" custom onChange={e => this.props.updateLocation(e.target.value)}>
+                        {this.props.locations.map((location) => {
+                             return <option>{location.address}, {location.city}, {location.state}, {location.distance}</option>
+                        })
+                        }
+                    </Form.Control>
+                </Form.Group>
+    
+            </Form>
+        )
     }
-
+    
     
 };
 
