@@ -20,6 +20,16 @@ export const getUserByUsername = (req, res) => {
     })
 }; 
 
+export const getUserById = (req, res) => {
+    const id = req.params.id;
+    User.findById(id, (err, user) => {
+        if (err) {
+            res.send(err);
+        }
+        res.json(user);
+    })
+}; 
+
 export const loginUser = (req, res) => {
         const username = req.body.username;
         const password = req.body.password;

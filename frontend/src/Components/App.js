@@ -7,7 +7,10 @@ import HomeScreen from './HomeScreen';
 import ReviewScreen from './ReviewScreen';
 import RegionalPriceScreen from './RegionalPriceScreen';
 import LoginScreen from './LoginScreen';
-
+import Demo from './Demo'
+import {sessionService} from 'redux-react-session';
+import { current } from '@reduxjs/toolkit';
+import AccountScreen from './AccountScreen';
 
 const App = () => {
     return (
@@ -17,6 +20,8 @@ const App = () => {
                 <Router>
                     <Routes>
                         <Route exact path="/" element={<HomeScreen/>}  />
+                        <Route path="/login" element={<LoginScreen/>} />
+                        <Route path="/account" element={<AccountScreen/>} />
                         <Route path="/reviews" element={<ReviewScreen/>} />
                         <Route path="/regional" element={<RegionalPriceScreen/>} />
                         <Route path="/login" element={<LoginScreen/>} />

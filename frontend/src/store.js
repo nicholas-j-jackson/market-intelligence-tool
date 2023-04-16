@@ -7,6 +7,8 @@ import { location1PriceReducer, location2PriceReducer, location3PriceReducer } f
 import { region1AvgPriceReducer, region2AvgPriceReducer } from './reducers/regionalPriceReducers'
 import { reviewReducer } from './reducers/reviewReducers'
 import { restaurantReducer } from './reducers/restaurantReducers'
+import {sessionReducer} from 'redux-react-session';
+import {sessionService} from 'redux-react-session';
 
 const initialState = {
     locations: {},
@@ -32,7 +34,7 @@ const reducer = combineReducers({
   region2PriceList: region2AvgPriceReducer,
   reviewList: reviewReducer,
   restaurantList: restaurantReducer,
-
+  session: sessionReducer
 })
 
   
@@ -44,4 +46,6 @@ const reducer = combineReducers({
     composeWithDevTools(applyMiddleware(...middleware))
   )
   
+  sessionService.initSessionService(store);
+
   export default store

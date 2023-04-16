@@ -1,16 +1,36 @@
-import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 // Make navbar cover the entire width of the screen
 import 'bootstrap/dist/css/bootstrap.min.css';
 import logo from '../assets/logo.png';
-
+import { useState, useEffect } from 'react';
+import { sessionService } from 'redux-react-session';
+import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 
 function Header() {
+  const [loggedIn, setLoggedIn] = useState(false);
+
+  useEffect(()=>{
+    sessionService.loadSession().then(currentSession => {
+      console.log(currentSession)
+      setLoggedIn(true);
+    })
+    .catch(err => {
+      console.log(err)
+      setLoggedIn(false);
+    })
+  })
+
+  const logout = () => {
+    sessionService.deleteUser();
+    sessionService.deleteSession();
+    //window.location.reload(false);
+    setLoggedIn(false);
+  }
+
   return (
     <Navbar bg="light" expand="xl">
         <Navbar.Brand href="/">
@@ -22,13 +42,22 @@ function Header() {
             <Nav.Link href="/reviews">Reviews</Nav.Link>
             <Nav.Link href="/regional">Compare Prices by Region</Nav.Link>
             <NavDropdown title="Account" id="basic-nav-dropdown">
-              <NavDropdown.Item href="/login">Login</NavDropdown.Item>
-              <NavDropdown.Item href="/register">Register </NavDropdown.Item>
+              {
+                !loggedIn? 
+                <NavDropdown.Item href="/login">Login</NavDropdown.Item> :
+                <NavDropdown.Item href="/" onClick={logout}>Logout</NavDropdown.Item>
+              }
+              {
+                !loggedIn? 
+                null :
+                <NavDropdown.Item href="/account">Account</NavDropdown.Item>
+              }
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
     </Navbar>
   );
 }
+
 
 export default Header;

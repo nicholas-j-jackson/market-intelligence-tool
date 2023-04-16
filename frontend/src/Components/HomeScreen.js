@@ -20,8 +20,10 @@ import axios from 'axios';
 
 const HERE_API_KEY = 'EOCZRVAhmNCHpc7ze6ortW5m3BhO9t7I0blnnPqvhUM' //process.env.HERE_APIKEY;
 
+import { sessionService } from 'redux-react-session';
 
 const HomeScreen = () => {
+    
     const dispatch = useDispatch();
 
     const locationList = useSelector((state) => state.locationList);
