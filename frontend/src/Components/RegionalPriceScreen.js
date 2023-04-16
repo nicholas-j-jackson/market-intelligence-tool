@@ -7,7 +7,7 @@ import { listLocations } from '../actions/locationsActions';
 import { listRegion1Prices, listRegion2Prices} from '../actions/regionalPriceActions';
 import SelectRegionForm from './selectRegionForm';
 import "intro.js/introjs.css";
-import Demo from './Demo'
+import Demo from './Demo_'
 import Loader from './Loader';
 import Message from './Message';
 

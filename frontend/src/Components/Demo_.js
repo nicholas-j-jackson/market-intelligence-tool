@@ -18,29 +18,18 @@ class Demo extends Component {
                 },
                 {
                     element: "#step1",
-                    title: "Enter your Location",
-                    intro: "Enter your location to see the prices of the items in your area. Press \'Search near this location\' when you are done.",
+                    title: "Select Chains",
+                    intro: "Select the chains to comapare its local average prices",
                 },
                 {
                     element: "#step2",
-                    title: "Toggle Advanced Search",
-                    intro: "Click on this to toggle advanced search, which allows you to search for items by price and limit the search by distance.",
+                    title: "Select City",
+                    intro: "Select the cities to compare",
                 },
                 {
                     element: "#step3",
-                    title: "Select Chains",
-                    intro: "Select the chains to compare prices from.",
-
-                },
-                {
-                    element: "#step4",
-                    title: "Select the Store",
-                    intro: "Select the store location to compare.",
-                },
-                {
-                    element: "#step5",
-                    title: "Menus and Price",
-                    intro: "Compare the prices between different locations. Download CSV file to export data",
+                    title: "Menus and Average Price",
+                    intro: "Compare the prices between different cities. Download CSV file to export data.",
                 },
                 {
                     element: ".world",
