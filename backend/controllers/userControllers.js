@@ -73,47 +73,57 @@ export const createUser = (req, res) => {
     const first_name = req.body.first_name;
     const last_name = req.body.last_name;
     const email = req.body.email;
+    let falseUser = false;
 
     User.find({$or:[{"username": username},{"email": email}]}, (err, user) => {
         if (err) {
+            falseUser = true;
             res.status(400).json({
                 "status": "catch_error",
                 "message": "An error was thrown while checking for duplicate usernames."
             })
+            
         }
         if (user.length > 0) {
+            falseUser = true;
             res.json({
                 "status": "duplicate_username_or_email",
                 "message": "A user already exists with the given username or email."
             })
+            
+        }
+        else {
+            const saltRounds = 10;
+            bcrypt.hash(req.body.password, saltRounds)
+                .then(hashed => {
+                    const newUser = new User({ 
+                        username, 
+                        password: hashed, 
+                        first_name, 
+                        last_name, 
+                        email
+                    });
+                    
+                newUser.save()
+                    .then(() => res.json('User added!'))
+                    .catch(err => {
+                        res.status(400).json({                           
+                            "status": "catch_error",
+                            "message": "An error was thrown while saving the user to the database."
+                        })
+                        return;
+                    })
+                })
+                .catch(err => {
+                    res.status(400).json({
+                        "status": "catch_error",
+                        "message": "An error was thrown while hashing the password."
+                    })
+                    return;
+                })
         }
     })
-
-    const saltRounds = 10;
-    bcrypt.hash(req.body.password, saltRounds)
-        .then(hashed => {
-            const newUser = new User({ 
-                username, 
-                password: hashed, 
-                first_name, 
-                last_name, 
-                email
-            });
-            
-        newUser.save()
-            .then(() => res.json('User added!'))
-            .catch(err => {
-                res.status(400).json({                           
-                    "status": "catch_error",
-                    "message": "An error was thrown while saving the user to the database."
-                })
-            })
-        })
-        .catch(err => {
-            res.status(400).json({
-                "status": "catch_error",
-                "message": "An error was thrown while hashing the password."
-            })
-        })
+    
+    
 };
 
