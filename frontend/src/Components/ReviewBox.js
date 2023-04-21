@@ -13,8 +13,8 @@ class ReviewBox extends React.Component {
         return (
             <Card>
                 <Card.Body>
-                    <Card.Title>{(this.props.review[this.props.index]).address}</Card.Title>
-                    <Card.Subtitle className="mb-2 text-muted">{(this.props.review[this.props.index]).rating}</Card.Subtitle>
+                    <Card.Title>{(this.props.review[this.props.index]).rating}</Card.Title>
+                    <Card.Subtitle className="mb-2 text-muted">{(this.props.review[this.props.index]).date.split("T")[0]}</Card.Subtitle>
                     <Card.Text>
                         {(this.props.review[this.props.index]).review_text}
                     </Card.Text>

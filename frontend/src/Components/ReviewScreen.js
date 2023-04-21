@@ -10,7 +10,7 @@ import { BrowserRouter as Router, Route, Link, Routes } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { listLocations } from '../actions/locationsActions';
-import { listReviewsByCity } from '../actions/reviewActions';
+import { listReviewsByBizID } from '../actions/reviewActions';
 
 import Loader from './Loader';
 import Message from './Message';
@@ -20,12 +20,13 @@ import ReviewBox from './ReviewBox';
 import { listRestaurantsByCity } from '../actions/restaurantActions';
 
 import Button from 'react-bootstrap/Button';
+import { set } from 'mongoose';
 
 // TODO: 
 // Keep track of page number and index
 // Update page nubmer and index when user clicks next or previous
 // Reset page number and index when user selects a new restaurant
-// Update reviewsToDisplay when user selects a new restaurant or clicks next or previous
+// Update reviews when user selects a new restaurant or clicks next or previous
 
 const ReviewScreen = () => {
     const dispatch = useDispatch();
@@ -35,7 +36,7 @@ const ReviewScreen = () => {
     const [chain1, setChain1] = useState('Wendy\'s');
     const chains = ['Wendy\'s']; 
 
-    const [city, setCity] = useState('Miami');
+    const [city, setCity] = useState('Miami, FL');
     const cities = ['Albuquerque, NM', 'Amarillo, TX', 'Anaheim, CA', 'Anchorage, AK', 'Arlington, TX', 'Arlington, VA', 'Atlanta, GA', 'Augusta, GA', 'Aurora, CO', 'Austin, TX', 'Bakersfield, CA', 'Baltimore, MD', 'Baton Rouge, LA', 'Boise, ID', 'Boston, MA', 'Buffalo, NY', 'Cape Coral, FL', 'Chandler, AZ', 'Charlotte, NC', 'Chesapeake, VA', 'Chicago, IL', 'Chula Vista, CA', 'Cincinnati, OH', 'Cleveland, OH', 'Colorado Springs, CO', 'Columbus, GA', 'Columbus, OH', 'Corpus Christi, TX', 'Dallas, TX', 'Denver, CO', 'Des Moines, IA', 'Detroit, MI', 'Durham, NC', 'El Paso, TX', 'Enterprise, NV', 'Fayetteville, NC', 'Fontana, CA', 'Fort Wayne, IN', 'Fort Worth, TX', 'Fremont, CA', 'Fresno, CA', 'Frisco, TX', 'Garland, TX', 'Gilbert, AZ', 'Glendale, AZ', 'Grand Prairie, TX', 'Grand Rapids, MI', 'Greensboro, NC', 'Henderson, NV', 'Hialeah, FL', 'Honolulu, HI', 'Houston, TX', 'Huntington Beach, CA', 'Huntsville, AL', 'Indianapolis, IN', 'Irvine, CA', 'Irving, TX', 'Jacksonville, FL', 'Jersey City, NJ', 'Kansas City, MO', 'Laredo, TX', 'Las Vegas, NV', 'Lexington, KY', 'Lincoln, NE', 'Little Rock, AR', 'Long Beach, CA', 'Los Angeles, CA', 'Louisville, KY', 'Lubbock, TX', 'Madison, WI', 'McKinney, TX', 'Memphis, TN', 'Mesa, AZ', 'Miami, FL', 'Milwaukee, WI', 'Minneapolis, MN', 'Modesto, CA', 'Montgomery, AL', 'Moreno Valley, CA', 'Nashville, TN', 'New Orleans, LA', 'New York City, NY', 'Newark, NJ', 'Norfolk, VA', 'North Las Vegas, NV', 'Oakland, CA', 'Oklahoma City, OK', 'Omaha, NE', 'Orlando, FL', 'Overland Park, KS', 'Oxnard, CA', 'Peoria, AZ', 'Philadelphia, PA', 'Phoenix, AZ', 'Pittsburgh, PA', 'Plano, TX', 'Port St. Lucie, FL', 'Portland, OR', 'Raleigh, NC', 'Reno, NV', 'Richmond, VA', 'Riverside, CA', 'Rochester, NY', 'Sacramento, CA', 'Salt Lake City, UT', 'San Antonio, TX', 'San Bernardino, CA', 'San Diego, CA', 'San Francisco, CA', 'San Jose, CA', 'San Juan, PR', 'Santa Ana, CA', 'Santa Clarita, CA', 'Scottsdale, AZ', 'Seattle, WA', 'Sioux Falls, SD', 'Spokane, WA', 'Spring Valley, NV', 'St. Louis, MO', 'St. Paul, MN', 'St. Petersburg, FL', 'Stockton, CA', 'Sunrise Manor, NV', 'Tacoma, WA', 'Tallahassee, FL', 'Tampa, FL', 'Toledo, OH', 'Tucson, AZ', 'Tulsa, OK', 'Vancouver, WA', 'Virginia Beach, VA', 'Washington, DC', 'Wichita, KS', 'Winston-Salem, NC', 'Worcester, MA', 'Yonkers, NY']
     const restaurantList = useSelector((state) => state.restaurantList);
     const { loading, error, restaurants } = restaurantList;
@@ -45,67 +46,48 @@ const ReviewScreen = () => {
     const { loadingReviews, errReviews, reviews } = reviewList;
 
 
-    const [reviewsToDisplay, setReviewsToDisplay] = useState([]);
     const [index, setIndex] = useState(0);
 
     const [seed, setSeed] = useState(0);
+    const [display, setDisplay] = useState(false);
 
 
     const [pageNumber, setPageNumber] = useState(0);
     const incrementPageNumber = () => {
-        if (reviewsToDisplay.length < 9) {
+
+        
+        if (reviews.length < 9 + index) {
             return;
         }
+
         setPageNumber(pageNumber + 1);
         setIndex(index + 9);
-        updateReviewsToDisplay(false);
-        console.log(pageNumber, index)
+
 
     }
 
     const decrementPageNumber = () => {
-        console.log(pageNumber, index)
-        if (pageNumber === -1) {
+        
+        if (index === 0) {
             return;
         }
-        if (pageNumber === 0) {
-            setPageNumber(0);
-            setIndex(0);
-            updateReviewsToDisplay(true);
-            return;
-        }
+
         setPageNumber(pageNumber - 1);
         setIndex(index - 9);
-        updateReviewsToDisplay(true);
         
-    }
-
-
-    const updateReviewsToDisplay = (decremented) => {
-        
-        
-
-        // If reviews is undefined or empty, do nothing
-        if (reviews) {
-            let temp = reviews.filter((review) => review.bizId === rest);
-            let temp2 = temp.slice(index, Math.min(temp.length, index + 9));
-
-            //console.log(index, temp.length, index + 9)
-            //console.log(temp2)
-            setReviewsToDisplay(temp2);
-
-            setSeed(Math.random());
-        }
     }
 
 
     const changeRestaurant = (rest1) => {
         let bizID = restaurants.filter((restaurant) => restaurant.address === rest1.split(',')[0])[0].bizId;
 
+        
         setRest(bizID);
         setPageNumber(0);
         setIndex(0);
-        updateReviewsToDisplay(false);
+        dispatch(listReviewsByBizID(bizID));
+
+        setDisplay(true);
     }
 
     const updateCity = (city) => {
@@ -113,17 +95,19 @@ const ReviewScreen = () => {
         setPageNumber(0);
         setIndex(0);
         dispatch(listRestaurantsByCity(city));
-        dispatch(listReviewsByCity(city));
+        
         setRest('');
 
         //updateReviewsToDisplay(rest1);
     }
 
     useEffect(() => {
-        dispatch(listRestaurantsByCity(city));
-        dispatch(listReviewsByCity(city));
 
-        updateReviewsToDisplay(false);
+        dispatch(listRestaurantsByCity(city));
+        //dispatch(listReviewsByCity(city));
+        dispatch(listReviewsByBizID(city, rest));
+
+
     }, [dispatch]);
 
 
@@ -136,7 +120,7 @@ const ReviewScreen = () => {
                     <Form> 
                         <Form.Group controlId="exampleForm.SelectCustom">
                         <Form.Label>Select Chain to Compare</Form.Label>
-                        <Form.Control as="select" custom onChange={e => setChain1(e.target.value)} defaultValue={chain1}>
+                        <Form.Control as="select" custom onChange={e => setChain1(e.target.value)} defaultValue={"chain1"}>
                             {chains.map((chain) => (
                                 <option>{chain}</option>
                             ))}
@@ -150,7 +134,7 @@ const ReviewScreen = () => {
                     <Form> 
                         <Form.Group controlId="exampleForm.SelectCustom">
                         <Form.Label>Select City</Form.Label>
-                        <Form.Control as="select" custom onChange={e => updateCity(e.target.value)} defaultValue={chain1}>
+                        <Form.Control as="select" custom onChange={e => updateCity(e.target.value)} defaultValue={city}>
                             {cities.map((chain) => (
                                 <option>{chain}</option>
                             ))}
@@ -169,57 +153,59 @@ const ReviewScreen = () => {
                                     chain={chain1}
                                     updateLocation={changeRestaurant}
                                     location={rest}
+                                    display={display}
                                     />
+
             </Row>
 
-            { loadingReviews ? <Loader /> : errReviews ? <Message variant='danger'>{errReviews}</Message>:  (reviews == undefined || reviews.length == 0) ? <Message variant='danger'>Select a location</Message>:
+            { loadingReviews ? <Loader /> : errReviews ? <Message variant='danger'>{errReviews}</Message>: !display ? <div></div> : (reviews == undefined || reviews.length == 0) ? <Loader/> : //<Message variant='danger'>Select a location</Message>:
             <Container fluid expand='xl' key={seed}>
             <Row>
                 <Col width='100%'>
-                    {reviewsToDisplay[0] == undefined ? <Message variant='danger'>No reviews for this location</Message> : <ReviewBox review={reviewsToDisplay} index={0}/>}
+                    {reviews[index+0] == undefined ? <Message variant='danger'>No reviews for this location</Message> : <ReviewBox review={reviews} index={index+0}/>}
                 </Col>
 
                 <Col>
-                    { reviewsToDisplay[1] == undefined ? <div/> : <ReviewBox review={reviewsToDisplay} index={1}/>}
+                    { reviews[index+1] == undefined ? <div/> : <ReviewBox review={reviews} index={index+1}/>}
                 </Col>
                 
                 <Col>
-                    { reviewsToDisplay[2] == undefined ? <div/> : <ReviewBox review={reviewsToDisplay} index={2}/>}
+                    { reviews[index+2] == undefined ? <div/> : <ReviewBox review={reviews} index={index+2}/>}
                 </Col>
             </Row>
 
             <Row>
                 <Col>
-                { reviewsToDisplay[3] == undefined ? <div/> : <ReviewBox review={reviewsToDisplay} index={3}/>}
+                { reviews[index+3] == undefined ? <div/> : <ReviewBox review={reviews} index={index+3}/>}
                 </Col>
 
                 <Col>
-                { reviewsToDisplay[4] == undefined ? <div/> : <ReviewBox review={reviewsToDisplay} index={4}/>}
+                { reviews[index+4] == undefined ? <div/> : <ReviewBox review={reviews} index={index+4}/>}
                 </Col>
                 
                 <Col>
-                { reviewsToDisplay[5] == undefined ? <div/> : <ReviewBox review={reviewsToDisplay} index={5}/>}
+                { reviews[index + 5] == undefined ? <div/> : <ReviewBox review={reviews} index={index + 5}/>}
                 </Col>
             </Row>
 
             <Row>
                 <Col>
-                { reviewsToDisplay[6] == undefined ? <div/> : <ReviewBox review={reviewsToDisplay} index={6}/>}
+                { reviews[index + 6] == undefined ? <div/> : <ReviewBox review={reviews} index={index + 6}/>}
                 </Col>
 
                 <Col>
-                { reviewsToDisplay[7] == undefined ? <div/> : <ReviewBox review={reviewsToDisplay} index={7}/>}
+                { reviews[index + 7] == undefined ? <div/> : <ReviewBox review={reviews} index={index + 7}/>}
                 </Col>
                 
                 <Col>
-                { reviewsToDisplay[8] == undefined ? <div/> : <ReviewBox review={reviewsToDisplay} index={8}/>}
+                { reviews[index + 8] == undefined ? <div/> : <ReviewBox review={reviews} index={index + 8}/>}
                 </Col>
             </Row>
                 
 
             <Row>
-                <Button onClick={decrementPageNumber} disabled={pageNumber == -1}> Previous</Button>
-                <Button onClick={incrementPageNumber} disabled={reviewsToDisplay.length<9}>Next</Button>
+                <Button onClick={decrementPageNumber} disabled={pageNumber == 0}> Previous</Button>
+                <Button onClick={incrementPageNumber} disabled={reviews.length<9+index}>Next</Button>
                 </Row>
 
             </Container>
