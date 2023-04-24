@@ -2,7 +2,7 @@ import React, { useEffect, useState, Fragment } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import { sessionService } from 'redux-react-session';
-import {Container, Row, Col} from 'react-bootstrap';
+import {Container, Row, Col, Button} from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,6 +11,7 @@ import { listLocationsByCityAndState } from '../actions/locationsActions';
 import { listLocation1Prices, listLocation2Prices, listLocation3Prices } from '../actions/priceActions';
 
 import {Form } from 'react-bootstrap';
+import {ButtonGroup} from 'react-bootstrap';
 
 import FoodTable from './FoodTable';
 import SelectCompetitorForm from './SelectCompetitorForm';
@@ -213,6 +214,24 @@ const AccountScreen = () => {
     const locationList = useSelector(state => state.locationList);
     const { loading, error, locations } = locationList;
 
+    function resetLocation(){
+      if( location !== ''){
+        let modifiedAddress = location.split(",")[0].replaceAll(" ", "+").replaceAll(",", "%2C").replaceAll(".", "%2E").replaceAll("#", "%23").replaceAll("&", "%26").replaceAll(":", "%3A");
+
+
+
+        let URL = "https://geocode.search.hereapi.com/v1/geocode?q=" + modifiedAddress + "&limit=4&apiKey=" + HERE_API_KEY
+
+        // Make a get request to the HERE API to get the user's coordinates
+        axios.get(URL)
+        .then(response => {
+            setUserLong(response.data.items[0].position.lng);
+            setUserLat(response.data.items[0].position.lat);
+        })
+    }
+
+    }
+
     useEffect(()=>{
         sessionService.loadSession().then(currentSession => {
           console.log(currentSession)
@@ -276,6 +295,12 @@ const AccountScreen = () => {
                     <Card.Text>
                         Location: {location}
                     </Card.Text>
+                    <Form> 
+                      <ButtonGroup>
+                          <Button variant="primary" onClick={e => resetLocation()}>Update Location</Button>
+                      </ButtonGroup>
+
+                    </Form>
                 </Card.Body>
             </Card>
           </Col>
