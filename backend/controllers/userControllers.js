@@ -73,6 +73,8 @@ export const createUser = (req, res) => {
     const first_name = req.body.first_name;
     const last_name = req.body.last_name;
     const email = req.body.email;
+    const location = req.body.location;
+
     let falseUser = false;
 
     User.find({$or:[{"username": username},{"email": email}]}, (err, user) => {
@@ -101,7 +103,8 @@ export const createUser = (req, res) => {
                         password: hashed, 
                         first_name, 
                         last_name, 
-                        email
+                        email, 
+                        location
                     });
                     
                 newUser.save()

@@ -31,6 +31,12 @@ const userSchema = new Schema({
         required: true,
         unique: true,
         trim: true
+    },
+    location: {
+        type: String,
+        default: '',
+        required: true,
+        trim: true
     }
 }, {
     timestamps: true,

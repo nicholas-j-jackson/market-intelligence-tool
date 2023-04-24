@@ -1,4 +1,4 @@
-import {addNewLocation, getLocations, getLocationByTypeAndStoreNumber, getLocationsByTypeAndState, getLocationsByState, getLocationsByZip, getLocationsByTypeAndZip, getLocationsByTypeAndCityAndState} from '../controllers/locationControllers.js'
+import {addNewLocation, getLocations, getLocationByTypeAndStoreNumber, getLocationsByTypeAndState, getLocationsByState, getLocationsByZip, getLocationsByTypeAndZip, getLocationsByTypeAndCityAndState, getLocationsByCityAndState} from '../controllers/locationControllers.js'
 
 const locationRoutes = (app) => {
     app.route('/api/locations')
@@ -25,6 +25,9 @@ const locationRoutes = (app) => {
 
     app.route('/api/locations/zip/:zip')
         .get(getLocationsByZip);
+
+    app.route('/api/locations/city_state/:city/:state')
+        .get(getLocationsByCityAndState);
 }
 
 export default locationRoutes;

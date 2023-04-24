@@ -91,3 +91,15 @@ export const getLocationsByZip = (req, res) => {
         res.json(location);
     })
 }
+
+export const getLocationsByCityAndState = (req, res) => {
+    const city = req.params.city;
+    const state = req.params.state;
+
+    Location.find({"city": city, "state": state}, (err, location) => {
+        if (err) {
+            res.send(err);
+        }
+        res.json(location);
+    })
+}
