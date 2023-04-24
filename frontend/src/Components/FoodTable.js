@@ -28,7 +28,6 @@ class FoodTable extends React.Component {
     }
 
     render(){
-        console.log(this.props.foods)
 
         return (
         <div>
