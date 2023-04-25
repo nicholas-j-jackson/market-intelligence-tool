@@ -1,5 +1,7 @@
 import { Review } from '../models/reviewModel.js';
 
+
+// A function to get all reviews from a specific restaurant by their ID
 export const getReviewsBybizId = (req, res) => {
     const type = req.params.type;
     const bizId = req.params.bizId;
@@ -13,7 +15,7 @@ export const getReviewsBybizId = (req, res) => {
 
 }
 
-
+// A function to get all reviews from all restaurants within a specific city
 export const getReviewsByCity = (req, res) => {
     const type = req.params.type;
     const city = req.params.city;

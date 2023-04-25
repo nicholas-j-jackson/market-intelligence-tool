@@ -1,5 +1,6 @@
 import { Location } from "../models/locationModel.js";
 
+// A function to add a new restaurant location to the database
 export const addNewLocation = (req, res) => {
     let newLocation = new Location(req.body);
 
@@ -12,6 +13,7 @@ export const addNewLocation = (req, res) => {
     });
 };
 
+// A function to get all restaurant locations from the database
 export const getLocations = (req, res) => {
     Location.find({}, (err, location) => {
         if (err) {
@@ -21,6 +23,7 @@ export const getLocations = (req, res) => {
     });
 };
 
+// A function to get a specific restaurant location by their ID and store number
 export const getLocationByTypeAndStoreNumber = (req, res) => {
     const type = req.params.type;
     const store_id = req.params.store_id;
@@ -33,6 +36,7 @@ export const getLocationByTypeAndStoreNumber = (req, res) => {
     })
 };
 
+// A function to get all restaurant locations from a specific city
 export const getLocationsByTypeAndState = (req, res) => {
     const type = req.params.type;
     const state = req.params.state;
@@ -57,6 +61,7 @@ export const getLocationsByTypeAndZip = (req, res) => {
     })
 }
 
+// A function to get all restaurant locations from a specific city and state
 export const getLocationsByTypeAndCityAndState = (req, res) => {
     const type = req.params.type;
     const city = req.params.city;
@@ -70,6 +75,7 @@ export const getLocationsByTypeAndCityAndState = (req, res) => {
     })
 }
 
+// A function to get all restaurant locations from a specific state
 export const getLocationsByState = (req, res) => {
     const state = req.params.state;
 
@@ -81,6 +87,7 @@ export const getLocationsByState = (req, res) => {
     })
 }
 
+// A function to get all restaurant locations from a specific ZIP code
 export const getLocationsByZip = (req, res) => {
     const zip = req.params.zip;
 
@@ -92,6 +99,7 @@ export const getLocationsByZip = (req, res) => {
     })
 }
 
+// A function to get all restaurant locations from a specific city and state
 export const getLocationsByCityAndState = (req, res) => {
     const city = req.params.city;
     const state = req.params.state;

@@ -1,6 +1,8 @@
 import bcrypt from 'bcrypt';
 import { User } from "../models/userModel.js";
 
+
+// A function to get all users from the database
 export const getUsers = (req, res) => {
     User.find({}, (err, user) => {
         if (err) {
@@ -10,6 +12,7 @@ export const getUsers = (req, res) => {
     });
 };
 
+// A function to get a user from the database by username
 export const getUserByUsername = (req, res) => {
     const username = req.params.username;
     User.findOne({"username": username}, (err, user) => {
@@ -20,6 +23,7 @@ export const getUserByUsername = (req, res) => {
     })
 }; 
 
+// A function to get a user from the database by id
 export const getUserById = (req, res) => {
     const id = req.params.id;
     User.findById(id, (err, user) => {
@@ -30,6 +34,7 @@ export const getUserById = (req, res) => {
     })
 }; 
 
+// A function to complete user login and handle errors
 export const loginUser = (req, res) => {
         const username = req.body.username;
         const password = req.body.password;
@@ -68,6 +73,7 @@ export const loginUser = (req, res) => {
         })
 };
 
+// A function to create a new user and handle errors
 export const createUser = (req, res) => {
     const username = req.body.username;
     const first_name = req.body.first_name;

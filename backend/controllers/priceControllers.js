@@ -1,5 +1,7 @@
 import { Price } from "../models/priceModel.js";
 
+
+// A function to add a new price to the database
 export const addNewPrice = (req, res) => {
     let newPrice = new Price(req.body);
 
@@ -12,6 +14,7 @@ export const addNewPrice = (req, res) => {
     });
 };
 
+// A function to get all prices from the database
 export const getPrices = (req, res) => {
     Price.find({}, (err, price) => {
         if (err) {
@@ -21,6 +24,7 @@ export const getPrices = (req, res) => {
     });
 };
 
+// A function to get a specific price by their ID and store number
 export const getPriceByStoreNumberAndProduct = (req, res) => {
     const type = req.params.type;
     const store_id = req.params.store_id;
@@ -34,6 +38,8 @@ export const getPriceByStoreNumberAndProduct = (req, res) => {
     })
 }
 
+
+// A function to get all prices from a specific store by the store number
 export const getAllPricesFromStore = (req, res) => {
     const type = req.params.type;
     const store_id = req.params.store_id;
