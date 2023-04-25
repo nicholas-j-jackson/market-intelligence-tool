@@ -25,6 +25,7 @@ const HERE_API_KEY = 'EOCZRVAhmNCHpc7ze6ortW5m3BhO9t7I0blnnPqvhUM' //process.env
 
 const AccountScreen = () => {  
 
+    // Create local state variables to store user attributes
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
@@ -39,7 +40,12 @@ const AccountScreen = () => {
     const [userLat, setUserLat] = useState(0);
     const [userLong, setUserLong] = useState(0);
     
+    const [location1RestType, setLocation1RestType] = useState("");
+    const [location2RestType, setLocation2RestType] = useState("");
+    const [location3RestType, setLocation3RestType] = useState("");
 
+
+    // Load in values from the redux store
     const location1PriceList = useSelector((state) => state.location1PriceList);
     const { loadingLocation1, errorLocation1, location1Prices } = location1PriceList;
 
@@ -48,22 +54,15 @@ const AccountScreen = () => {
 
     const location3PriceList = useSelector((state) => state.location3PriceList);
     const { loadingLocation3, errorLocation3, location3Prices } = location3PriceList;
-
-
-    const [location1RestType, setLocation1RestType] = useState("");
-    const [location2RestType, setLocation2RestType] = useState("");
-    const [location3RestType, setLocation3RestType] = useState("");
-
+    
+    // Define a constant to convert between type and restaurant name
     const mapping = [{name: 'Jimmy Johns', type:'john'},
     {name: 'FireHouse Subs', type:'fire'},
     {name: 'Jersey Mike\'s', type:'mike'}]
 
-
+    // A function to filter prices (sort them, remove duplicates, and remove non-ASCII characters)
     function filterPrices(locationPrices){
-      // Remove duplicates
-
-      // Remove duplicate item and price combinations
-      // Set all _id to 0
+      
       locationPrices = locationPrices.map(x => {
           x._id = 0;
           x.time = "";
@@ -81,7 +80,7 @@ const AccountScreen = () => {
       );
 
 
-      
+      // Sort by price
       filteredPrices.sort((a, b) => (a.price > b.price) ? 1 : -1);
       
       
@@ -113,10 +112,8 @@ const AccountScreen = () => {
       });
 
       
+      // Remove prices that are not in the range
       filteredPrices = filteredPrices.filter(x => parseFloat(x.price) >= minPrice);
-  
-
-    
       filteredPrices = filteredPrices.filter(x => parseFloat(x.price) <= maxPrice);
 
       return filteredPrices;
@@ -132,9 +129,12 @@ const AccountScreen = () => {
       }
       else{
           let filteredLocations = [...new Set(locs)]; // Remove duplicates
+
+          // Remove locations which are not the selected location
           filteredLocations = filteredLocations.filter(x => x.address !== location.split(',')[0]);
 
 
+          // Compute the distance between the user and each location
           if (userLat !== ''){
               filteredLocations = filteredLocations.map(x => {
                   x.distance = Math.round(distance(userLat, userLong, x.latitude, x.longitude, 'M') * 10) / 10;
@@ -149,6 +149,7 @@ const AccountScreen = () => {
   }
 
 
+  // A function to compute distance (in miles) between two latitude and longitude coordinates
   function distance(lat1, lon1, lat2, lon2, unit) {
     if ((lat1 == lat2) && (lon1 == lon2)) {
         return 0;
@@ -172,17 +173,19 @@ const AccountScreen = () => {
     }
 }
 
-
+    // A function to update the second location chosen to compare prices with
   function updateLocation2(e){
     setLocation2(e);
 
+    // Find the type and id of the location
     let location_type = locations.filter(loc => loc.address === e.split(',')[0])[0].type;
     let location_id = locations.filter(loc => loc.address === e.split(',')[0])[0].store_id;
 
+    // Update the restaurant type and refresh the prices
     setLocation2RestType(mapping.filter(x => x.type === location_type)[0].name)
-
     dispatch(listLocation2Prices(location_type, location_id));
 
+    // Refresh the prices for the first location
     let location_type1 = locations.filter(loc => loc.address === location.split(',')[0])[0].type;
     let location_id1 = locations.filter(loc => loc.address === location.split(',')[0])[0].store_id;
     setLocation1RestType(mapping.filter(x => x.type === location_type1)[0].name)
@@ -190,35 +193,36 @@ const AccountScreen = () => {
 
   }
 
+    // A function to update the third location chosen to compare prices with
   function updateLocation3(e){
     setLocation3(e);
 
+    // Find the type and id of the location
     let location_type = locations.filter(loc => loc.address === e.split(',')[0])[0].type;
     let location_id = locations.filter(loc => loc.address === e.split(',')[0])[0].store_id;
 
+    // Update the restaurant type and refresh the prices
     setLocation3RestType(mapping.filter(x => x.type === location_type)[0].name)
-
-
     dispatch(listLocation3Prices(location_type, location_id));
 
-
-    
+    // Refresh the prices for the first location
     let location_type1 = locations.filter(loc => loc.address === location.split(',')[0])[0].type;
     let location_id1 = locations.filter(loc => loc.address === location.split(',')[0])[0].store_id;
     setLocation1RestType(mapping.filter(x => x.type === location_type1)[0].name)
     dispatch(listLocation1Prices(location_type1, location_id1));
   }
 
+    // Use dispatch
     const dispatch = useDispatch();
 
+    // Get all locations from the redux store
     const locationList = useSelector(state => state.locationList);
     const { loading, error, locations } = locationList;
 
+    // A function to update the user position
     function resetLocation(){
       if( location !== ''){
         let modifiedAddress = location.split(",")[0].replaceAll(" ", "+").replaceAll(",", "%2C").replaceAll(".", "%2E").replaceAll("#", "%23").replaceAll("&", "%26").replaceAll(":", "%3A");
-
-
 
         let URL = "https://geocode.search.hereapi.com/v1/geocode?q=" + modifiedAddress + "&limit=4&apiKey=" + HERE_API_KEY
 
@@ -233,6 +237,8 @@ const AccountScreen = () => {
     }
 
     useEffect(()=>{
+
+        // Load the user's session and get their information
         sessionService.loadSession().then(currentSession => {
           console.log(currentSession)
           axios.get('http://localhost:3001/api/users/id/'+currentSession)
@@ -253,21 +259,8 @@ const AccountScreen = () => {
         })
 
 
-        // 
-        if( location !== ''){
-          let modifiedAddress = location.split(",")[0].replaceAll(" ", "+").replaceAll(",", "%2C").replaceAll(".", "%2E").replaceAll("#", "%23").replaceAll("&", "%26").replaceAll(":", "%3A");
-
-
-
-          let URL = "https://geocode.search.hereapi.com/v1/geocode?q=" + modifiedAddress + "&limit=4&apiKey=" + HERE_API_KEY
-
-          // Make a get request to the HERE API to get the user's coordinates
-          axios.get(URL)
-          .then(response => {
-              setUserLong(response.data.items[0].position.lng);
-              setUserLat(response.data.items[0].position.lat);
-          })
-      }
+        // Get the user's location and update the user's position
+        resetLocation();
 
       }, [dispatch])
 

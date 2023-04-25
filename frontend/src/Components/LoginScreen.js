@@ -16,6 +16,8 @@ import SelectCityForm from './SelectCityForm';
 import './LoginScreen.css'
 
 const LoginScreen = () => {  
+
+    // Set up state variables for login and registration
     const [logUsername, setLogUsername] = useState("");
     const [logPassword, setLogPassword] = useState("");
 
@@ -31,12 +33,14 @@ const LoginScreen = () => {
     const [userLocation, setUserLocation] = useState("");
     const [franchiseOwner, setFranchiseOwner] = useState(false);
 
+    // Set up state variables for providing user options
     const chainList = ['Jimmy Johns', 'FireHouse Subs', 'Jersey Mike\'s']
     const stateList = ['', 'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY']
     const mapping = [{name: 'Jimmy Johns', type:'john'},
                     {name: 'FireHouse Subs', type:'fire'},
                     {name: 'Jersey Mike\'s', type:'mike'}]
 
+    // Set up state variables for error handling
     const [userDoesNotExist, setUserDoesNotExist] = useState(false);
     const [invalidField, setInvalidField] = useState(false);
     const [duplicateUser, setDuplicateUser] = useState(false);
@@ -45,9 +49,11 @@ const LoginScreen = () => {
 
     const dispatch = useDispatch();
     
+    // Get list of locations from redux store
     const locationList = useSelector(state => state.locationList);
     const { loading, error, locations } = locationList;
 
+    // When the username is changed, check if the username is already taken
     const onChangeUsername = e => {
         setNewUsername(e.target.value)
 
@@ -60,6 +66,7 @@ const LoginScreen = () => {
 
     }
 
+    // When the password is changed, check if the password is valid
     const onChangePassword = e => {
         setNewPassword(e.target.value)
 
@@ -71,6 +78,7 @@ const LoginScreen = () => {
         }
     }
 
+    // When the first name is changed, check if the first name is valid
     const onChangeFirstName = e => {
         setNewFirstName(e.target.value)
 
@@ -82,6 +90,7 @@ const LoginScreen = () => {
         }
     }
 
+    // When the last name is changed, check if the last name is valid
     const onChangeLastName = e => {
         setNewLastName(e.target.value)
 
@@ -93,6 +102,7 @@ const LoginScreen = () => {
         }
     }
 
+    // When the email is changed, check if the email is valid
     const onChangeEmail = e => {
         setNewEmail(e.target.value)
 
@@ -104,6 +114,7 @@ const LoginScreen = () => {
         }
     }
 
+    // When the username we are logging in with is changed, check if the username is valid
     const onChangeLogUsername = e => {
         setLogUsername(e.target.value)
 
@@ -112,6 +123,7 @@ const LoginScreen = () => {
         }
     }
 
+    // When the password we are logging in with is changed, check if the password is valid
     const onChangeLogPassword = e => {
         setLogPassword(e.target.value)
 
@@ -120,6 +132,7 @@ const LoginScreen = () => {
         }
     }
 
+    // When we change the state we are selecting, update the list of locations in that state
     const onChangeState = e => {
         setUserState(e.target.value)
 
@@ -133,6 +146,7 @@ const LoginScreen = () => {
         }
     }
 
+    // When we sign up a user account, make a post request to the backend
     const onSubmitSignup = e => {
         e.preventDefault();
 
@@ -166,6 +180,7 @@ const LoginScreen = () => {
         
     }
 
+    // When we log in a user account, make a post request to the backend
     const onSumbitLogin = e => {
         e.preventDefault();
         
@@ -209,6 +224,7 @@ const LoginScreen = () => {
         .catch(err => console.log(err));
     }
 
+    // Filter the list of cities from the list of locations to remove those in the wrong state
     const filterCities = (locs) => {
         let cities = [];
         locs.forEach(loc => {

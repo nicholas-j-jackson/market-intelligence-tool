@@ -20,42 +20,41 @@ import ReviewBox from './ReviewBox';
 import { listRestaurantsByCity } from '../actions/restaurantActions';
 
 import Button from 'react-bootstrap/Button';
-import { set } from 'mongoose';
 
-// TODO: 
-// Keep track of page number and index
-// Update page nubmer and index when user clicks next or previous
-// Reset page number and index when user selects a new restaurant
-// Update reviews when user selects a new restaurant or clicks next or previous
 
 const ReviewScreen = () => {
-    const dispatch = useDispatch();
-
+    // Set local state variables
     const [rest, setRest] = useState("FxF6UvBIWWEGiu45Bk0teg");
 
     const [chain1, setChain1] = useState('Wendy\'s');
     const chains = ['Wendy\'s']; 
 
     const [city, setCity] = useState('Miami, FL');
+    
+    const [index, setIndex] = useState(0);
+    const [seed, setSeed] = useState(0);
+    const [display, setDisplay] = useState(false);
+
+    const [pageNumber, setPageNumber] = useState(0);
+
+
+    // Set up constant values for cities to populate the dropdown
     const cities = ['Albuquerque, NM', 'Amarillo, TX', 'Anaheim, CA', 'Anchorage, AK', 'Arlington, TX', 'Arlington, VA', 'Atlanta, GA', 'Augusta, GA', 'Aurora, CO', 'Austin, TX', 'Bakersfield, CA', 'Baltimore, MD', 'Baton Rouge, LA', 'Boise, ID', 'Boston, MA', 'Buffalo, NY', 'Cape Coral, FL', 'Chandler, AZ', 'Charlotte, NC', 'Chesapeake, VA', 'Chicago, IL', 'Chula Vista, CA', 'Cincinnati, OH', 'Cleveland, OH', 'Colorado Springs, CO', 'Columbus, GA', 'Columbus, OH', 'Corpus Christi, TX', 'Dallas, TX', 'Denver, CO', 'Des Moines, IA', 'Detroit, MI', 'Durham, NC', 'El Paso, TX', 'Enterprise, NV', 'Fayetteville, NC', 'Fontana, CA', 'Fort Wayne, IN', 'Fort Worth, TX', 'Fremont, CA', 'Fresno, CA', 'Frisco, TX', 'Garland, TX', 'Gilbert, AZ', 'Glendale, AZ', 'Grand Prairie, TX', 'Grand Rapids, MI', 'Greensboro, NC', 'Henderson, NV', 'Hialeah, FL', 'Honolulu, HI', 'Houston, TX', 'Huntington Beach, CA', 'Huntsville, AL', 'Indianapolis, IN', 'Irvine, CA', 'Irving, TX', 'Jacksonville, FL', 'Jersey City, NJ', 'Kansas City, MO', 'Laredo, TX', 'Las Vegas, NV', 'Lexington, KY', 'Lincoln, NE', 'Little Rock, AR', 'Long Beach, CA', 'Los Angeles, CA', 'Louisville, KY', 'Lubbock, TX', 'Madison, WI', 'McKinney, TX', 'Memphis, TN', 'Mesa, AZ', 'Miami, FL', 'Milwaukee, WI', 'Minneapolis, MN', 'Modesto, CA', 'Montgomery, AL', 'Moreno Valley, CA', 'Nashville, TN', 'New Orleans, LA', 'New York City, NY', 'Newark, NJ', 'Norfolk, VA', 'North Las Vegas, NV', 'Oakland, CA', 'Oklahoma City, OK', 'Omaha, NE', 'Orlando, FL', 'Overland Park, KS', 'Oxnard, CA', 'Peoria, AZ', 'Philadelphia, PA', 'Phoenix, AZ', 'Pittsburgh, PA', 'Plano, TX', 'Port St. Lucie, FL', 'Portland, OR', 'Raleigh, NC', 'Reno, NV', 'Richmond, VA', 'Riverside, CA', 'Rochester, NY', 'Sacramento, CA', 'Salt Lake City, UT', 'San Antonio, TX', 'San Bernardino, CA', 'San Diego, CA', 'San Francisco, CA', 'San Jose, CA', 'San Juan, PR', 'Santa Ana, CA', 'Santa Clarita, CA', 'Scottsdale, AZ', 'Seattle, WA', 'Sioux Falls, SD', 'Spokane, WA', 'Spring Valley, NV', 'St. Louis, MO', 'St. Paul, MN', 'St. Petersburg, FL', 'Stockton, CA', 'Sunrise Manor, NV', 'Tacoma, WA', 'Tallahassee, FL', 'Tampa, FL', 'Toledo, OH', 'Tucson, AZ', 'Tulsa, OK', 'Vancouver, WA', 'Virginia Beach, VA', 'Washington, DC', 'Wichita, KS', 'Winston-Salem, NC', 'Worcester, MA', 'Yonkers, NY']
+    
+
+    // Set up dispatch and selector hooks for Redux
+    const dispatch = useDispatch();
+
     const restaurantList = useSelector((state) => state.restaurantList);
     const { loading, error, restaurants } = restaurantList;
-
 
     const reviewList = useSelector((state) => state.reviewList);
     const { loadingReviews, errReviews, reviews } = reviewList;
 
 
-    const [index, setIndex] = useState(0);
-
-    const [seed, setSeed] = useState(0);
-    const [display, setDisplay] = useState(false);
-
-
-    const [pageNumber, setPageNumber] = useState(0);
+    // A function to increment the page number when the 'next' button is clicked
     const incrementPageNumber = () => {
 
-        
         if (reviews.length < 9 + index) {
             return;
         }
@@ -66,6 +65,7 @@ const ReviewScreen = () => {
 
     }
 
+    // A function to decrement the page number when the 'previous' button is clicked
     const decrementPageNumber = () => {
         
         if (index === 0) {
@@ -77,7 +77,7 @@ const ReviewScreen = () => {
         
     }
 
-
+    // A function to update the reviews to display when a new restaurant is selected
     const changeRestaurant = (rest1) => {
         let bizID = restaurants.filter((restaurant) => restaurant.address === rest1.split(',')[0])[0].bizId;
 
@@ -90,6 +90,7 @@ const ReviewScreen = () => {
         setDisplay(true);
     }
 
+    // A function to update the city and get all restaurants in that city when a new city is selected
     const updateCity = (city) => {
         setCity(city);
         setPageNumber(0);

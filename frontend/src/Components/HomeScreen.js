@@ -22,11 +22,12 @@ const HERE_API_KEY = 'EOCZRVAhmNCHpc7ze6ortW5m3BhO9t7I0blnnPqvhUM' //process.env
 
 const HomeScreen = () => {
     
+    // Use dispatch to call the actions
     const dispatch = useDispatch();
 
+    // Get locations and prices from the redux store
     const locationList = useSelector((state) => state.locationList);
     const { loading, error, locations } = locationList;
-
 
     const location1PriceList = useSelector((state) => state.location1PriceList);
     const { loadingLocation1, errorLocation1, location1Prices } = location1PriceList;
@@ -150,11 +151,8 @@ const HomeScreen = () => {
         }
     }
 
+    // A function to filter prices (remove duplicates, sort, remove items outside of price range, remove non-ASCII characters)
     function filterPrices(locationPrices){
-        // Remove duplicates
-
-        // Remove duplicate item and price combinations
-        // Set all _id to 0
         locationPrices = locationPrices.map(x => {
             x._id = 0;
             x.time = "";
@@ -251,23 +249,6 @@ const HomeScreen = () => {
     // Define a function to dispatch the correct action based on the user's search criteria
     function SearchLocations(){
     
-        /*
-        if (state === '' && zip === '' && city === ''){
-            dispatch(listLocations());
-        }
-        else if (zip === '' && city === ''){
-            dispatch(listLocationsByState(state));
-        }
-        else if (city === ''){
-            dispatch(listLocationsByStateAndZip(state, zip));
-        }
-        else if (zip === ''){
-            dispatch(listLocationsByStateAndCity(state, city));
-        }
-        else{
-            dispatch(listLocationsByStateAndCityAndZip(state, zip, city));
-        }
-        */
        dispatch(listLocations());
 
         if( userAddress !== '' || userZip !== '' && userState !== ''){
@@ -288,11 +269,13 @@ const HomeScreen = () => {
 
     }
 
+    // 
     function updateUserZip(zip){
         setUserZip(zip);
     }
 
 
+    // A function to toggle the advanced search options and reset the search criteria
     function switchToggle(){
         if (advancedToggle){
             setSorted(false);
@@ -300,13 +283,6 @@ const HomeScreen = () => {
             setMinPrice(0);
             setMaxPrice(100);
 
-            /*
-            setUserAddress('');
-            setUserLat(0);
-            setUserLong(0);
-            setUserZip('');
-            setUserState('');
-            */
         }
         setAdvancedToggle(!advancedToggle);
     }

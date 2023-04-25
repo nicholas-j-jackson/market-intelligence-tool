@@ -10,9 +10,11 @@ import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 
+// Header component
 function Header() {
   const [loggedIn, setLoggedIn] = useState(false);
 
+  // Check if user is logged in, if so, set loggedIn to true
   useEffect(()=>{
     sessionService.loadSession().then(currentSession => {
       console.log(currentSession)
@@ -24,6 +26,7 @@ function Header() {
     })
   })
 
+  // Logout function
   const logout = () => {
     sessionService.deleteUser();
     sessionService.deleteSession();

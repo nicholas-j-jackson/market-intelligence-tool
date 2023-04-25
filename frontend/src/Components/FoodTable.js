@@ -11,6 +11,7 @@ class FoodTable extends React.Component {
         this.getHeader = this.getHeader.bind(this);
     }
 
+    // Convert data tabular format
     getData() {
         return this.props.foods.map(({item, size, price}) => {return {
             item: item.toString(),
@@ -19,6 +20,7 @@ class FoodTable extends React.Component {
         });
     }
 
+    // Define the header for the table
     getHeader() {
         return [
             { label: "Item", key: "item" },
