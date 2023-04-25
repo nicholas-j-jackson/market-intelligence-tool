@@ -1,7 +1,14 @@
 # market-intelligence-tool
 ## Getting Started
-1) Run `npm install` in the root directory, frontend folder, and backend folder
-2) Run `npm run dev` in the root directory
+1) Install dependencies in root directory, backend folder, and frontend folder
+- `npm install`
+- `cd backend` 
+- `npm install`
+- `cd ../frontend`
+- `npm install`
+- `cd ..`
+2) Start the application from root directory
+- `npm run dev`
 ## Running Unit Tests
 1) `cd backend`
 2) `npm test`
