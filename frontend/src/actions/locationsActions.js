@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-
+// List all locations by making a GET request to the backend
 export const listLocations = () => async (dispatch) => {
     try {
         dispatch({ type: 'LOCATIONS_LIST_REQUEST' });
@@ -11,6 +11,7 @@ export const listLocations = () => async (dispatch) => {
     }
 };
 
+// List all locations of a specific chain within a specific state by making a GET request to the backend
 export const listLocationsByTypeAndState = (type, state) => async (dispatch) => {
     try {
         dispatch({ type: 'LOCATIONS_LIST_REQUEST' });
@@ -21,6 +22,7 @@ export const listLocationsByTypeAndState = (type, state) => async (dispatch) => 
     }
 }
 
+// List all locations within a specific city and state by making a GET request to the backend
 export const listLocationsByCityAndState = (city, state) => async (dispatch) => {
     try {
         dispatch({ type: 'LOCATIONS_LIST_REQUEST' });

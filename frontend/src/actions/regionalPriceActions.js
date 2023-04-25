@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+// List and aggregate all prices for a specific region by making a GET request to the backend
 export const listRegion1Prices = (locations) => async (dispatch) => {
     try {
         dispatch({ type: 'REGION1_PRICE_LIST_REQUEST' });
@@ -17,6 +18,7 @@ export const listRegion1Prices = (locations) => async (dispatch) => {
     }
 };
 
+// List and aggregate all prices for a specific region by making a GET request to the backend
 export const listRegion2Prices = (locations) => async (dispatch) => {
     try {
         dispatch({ type: 'REGION2_PRICE_LIST_REQUEST' });
@@ -34,6 +36,7 @@ export const listRegion2Prices = (locations) => async (dispatch) => {
     }
 }
 
+// Aggregate price values for a given region
 const getAveragePrices = (prices) => {
         // Getting average prices is very computationally expensive, just returning sorted first price for now
         // WIP

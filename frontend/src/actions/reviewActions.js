@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+// List all reviews within a specific city by making a GET request to the backend
 export const listReviewsByCity = (city) => async (dispatch) => {
     try {
         dispatch({ type: 'REVIEW_LIST_REQUEST' });
@@ -10,6 +11,7 @@ export const listReviewsByCity = (city) => async (dispatch) => {
     }
 }
 
+// List all reviews from a specific store by making a GET request to the backend
 export const listReviewsByBizID = (bizID) => async (dispatch) => {
     try {
         dispatch({ type: 'REVIEW_LIST_REQUEST' });

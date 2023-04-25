@@ -1,5 +1,6 @@
 import axios from "axios";
 
+// List all restaurants within a specific city by making a GET request to the backend
 export const listRestaurantsByCity = (city) => async (dispatch) => {
   try {
     dispatch({ type: "RESTAURANT_LIST_REQUEST" });
