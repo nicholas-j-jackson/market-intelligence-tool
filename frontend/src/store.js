@@ -10,6 +10,7 @@ import { restaurantReducer } from './reducers/restaurantReducers'
 import {sessionReducer} from 'redux-react-session';
 import {sessionService} from 'redux-react-session';
 
+// Create an initial state for the store
 const initialState = {
     locations: {},
 
@@ -25,6 +26,7 @@ const initialState = {
 
   }
 
+// Create a reducer to handle the state of the store based on reducers and actions
 const reducer = combineReducers({
   locationList: locationsReducer,
   location1PriceList: location1PriceReducer,
