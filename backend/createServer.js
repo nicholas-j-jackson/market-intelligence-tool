@@ -6,9 +6,12 @@ import userRoutes from './routes/userRoutes.js';
 import express from 'express';
 import cors from 'cors';
 
+// Create a function to create a server
 function createServer() {
+    // Bring in express
     const app = express();
 
+    // Use cors to allow cross-origin requests
     app.use(cors());
     // bodyparser setup
     app.use(bodyParser.urlencoded({ extended: true }));

@@ -10,11 +10,13 @@ import userRoutes from './routes/userRoutes.js';
 import dotenv from 'dotenv';
 import cors from 'cors';
 
-
+// Load environment variables
 dotenv.config();
 
+// Set up port
 const PORT = process.env.PORT;
 
+// Set up MongoDB URL
 const MONGO_URL = process.env.MONGO_URL.toString();
 
 const app = express();
@@ -44,11 +46,7 @@ restaurantRoutes(app);
 reviewRoutes(app);
 userRoutes(app);
 
-app.get('/', (req, res) => {
-    res.send(`Hello World! ${PORT}`);
-});
-
-
+// Serve static files
 app.listen(process.env.PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
